@@ -24,5 +24,10 @@
                     _scopeOfServices = value; 
             }
         }
+
+        internal override decimal GetSalary()
+        {
+            return Rate.Normative * _scopeOfServices;
+        }
     }
 }

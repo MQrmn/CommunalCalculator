@@ -4,7 +4,7 @@
     {
         public HeatCarrierByNormative(int residentsCount) : base(residentsCount) { }
 
-        internal override double GetSalary()
+        internal override decimal GetSalary()
         {
             throw new NotImplementedException();
         }

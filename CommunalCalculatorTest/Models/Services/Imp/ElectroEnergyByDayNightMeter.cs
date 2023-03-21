@@ -9,7 +9,7 @@
             _day = day;
             _night = night;
         }
-        internal override double GetSalary()
+        internal override decimal GetSalary()
         {
             return _day.GetSalary() + _night.GetSalary();
         }

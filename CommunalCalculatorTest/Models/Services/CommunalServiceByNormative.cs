@@ -19,5 +19,10 @@
                     _residentsCount = value; 
             }
         }
+
+        internal override decimal GetSalary()
+        {
+            return Rate.Normative * Rate.Rate * _residentsCount;
+        }
     }
 }

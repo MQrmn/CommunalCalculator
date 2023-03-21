@@ -2,7 +2,7 @@
 {
     internal class ThermalEnergy : CommunalService
     {
-        internal override double GetSalary()
+        internal override decimal GetSalary()
         {
             throw new NotImplementedException();
         }
