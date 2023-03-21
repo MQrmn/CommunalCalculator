@@ -6,21 +6,17 @@ namespace CommunalCalculator
     {
         private HouseBuilder _builder;
         private House _house;
-        private AllCommunalRates _rates;
+        private IRatesRepository _ratesRepository;
 
         public CommunalCalculator()
         {
-            _builder = new HouseBuilder();
+            _ratesRepository = new RatesRepository();
+            _builder = new HouseBuilder(_ratesRepository);
         }
 
         public void GetResut()
         {
             _house = _builder.GetObject();
-        }
-
-        private void SetRates()
-        {
-            _rates = new AllCommunalRates();
         }
 
         public void SetResidentsCount(int count)
@@ -30,52 +26,52 @@ namespace CommunalCalculator
 
         public void SetColdWater() 
         {
-            _builder.SetColdWater();
+            _builder.SetColdWaterByNormative();
         }
 
         public void SetColdWater(int reading) 
         {
-            _builder.SetColdWater(reading);
+            _builder.SetColdWaterByMeter(reading);
         }
 
         public void SetColdWater(int readingBefor, int readingNow) 
         {
-            _builder.SetColdWater(readingBefor, readingNow);
+            _builder.SetColdWaterByMeter(readingBefor, readingNow);
         }
 
         public void SetHotWater() 
         {
-            _builder.SetHotWater();
+            _builder.SetHeatCarrierThermalEnergyByNormative();
         }
 
         public void SetHotWater(int reading) 
         {
-            _builder.SetHotWater(reading);
+            _builder.SetHeatCarrierThermalEnergyByByMeter(reading);
         }
 
         public void SetHotWater(int readingBefor, int readingNow) 
         {
-            _builder.SetHotWater(readingBefor, readingNow);
+            _builder.SetHeatCarrierThermalEnergyByMeter(readingBefor, readingNow);
         }
 
         public void SetElectroEnergy() 
         {
-            _builder.SetElectroEnergy();
+            _builder.SetElectroEnergyByNormative();
         }
 
         public void SetElectroEnergy(int reading) 
         {
-            _builder.SetElectroEnergy(reading);
+            _builder.SetElectroEnergyByMeter(reading);
         }
 
         public void SetElectroEnergy(int readingBefore, int readingNow) 
         {
-            _builder.SetElectroEnergy(readingBefore, readingNow);
+            _builder.SetElectroEnergyByMeter(readingBefore, readingNow);
         }
 
         public void SetElectroEnergy(int dayReadingBefore, int dayReadingNow, int nightReadingBefore, int nightReadingNow)
         {
-            _builder.SetElectroEnergy(dayReadingBefore, dayReadingNow, nightReadingBefore, nightReadingNow);
+            _builder.SetElectroEnergyByDayNightMeter(dayReadingBefore, dayReadingNow, nightReadingBefore, nightReadingNow);
         }
 
     }

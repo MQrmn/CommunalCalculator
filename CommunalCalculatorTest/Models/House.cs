@@ -3,7 +3,8 @@
     internal class House
     {
         internal CommunalService ColdWater { get; set; }
-        internal CommunalService HotWater { get; set; }
+        internal CommunalService ThermalEnergy { get; set; }
+        internal CommunalService HeatCarrier { get; set; }
         internal CommunalService ElectroEnergy { get; set; }
         private int _residentsCount { get; set; }
         internal int ResidentsCount {
