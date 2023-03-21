@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommunalCalculatorTest\CommunalCalculator.csproj" />
+    <ProjectReference Include="..\CommunalCalculatorTest\Core.csproj" />
   </ItemGroup>
 
 </Project>

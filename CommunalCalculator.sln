@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunalCalculator", "CommunalCalculatorTest\CommunalCalculator.csproj", "{59AB3D17-1084-45DF-91E1-C7B1E7C95538}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "CommunalCalculatorTest\Core.csproj", "{59AB3D17-1084-45DF-91E1-C7B1E7C95538}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{D7F00B66-6F9F-45E2-9F66-9C2E71FEE19D}"
 EndProject
