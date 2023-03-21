@@ -62,7 +62,6 @@
             var eeDay = new ElectroEnergyByMeter(dayReadingBefore, dayReadingNow);
             var eeNight = new ElectroEnergyByMeter(nightReadingBefore, nightReadingNow);
             _house.ElectroEnergy = new ElectroEnergyByDayNightMeter(eeDay, eeNight);
-
         }
 
         internal House GetObject()
