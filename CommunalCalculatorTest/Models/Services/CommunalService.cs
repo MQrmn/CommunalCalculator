@@ -2,7 +2,7 @@
 {
     internal abstract class CommunalService
     {
-        private int _scopeOfServices;
+        private protected CommunalRate Rate { get; set; }
         internal abstract double GetSalary();
     }
 }

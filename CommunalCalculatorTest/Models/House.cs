@@ -2,10 +2,20 @@
 {
     internal class House
     {
-        private int _residentsCount;
-
-        private CommunalService _coldWater;
-        private CommunalService _hotWater;
-        private CommunalService _electroEnergy;
+        internal CommunalService ColdWater { get; set; }
+        internal CommunalService HotWater { get; set; }
+        internal CommunalService ElectroEnergy { get; set; }
+        private int _residentsCount { get; set; }
+        internal int ResidentsCount {
+            get
+            {
+                return _residentsCount;
+            }
+            set
+            {
+                if (value > 0)
+                    _residentsCount = value;
+            }
+        }
     }
 }
