@@ -4,7 +4,7 @@ namespace DataEF
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<CommunalRate> CommRates { get; set; }
+        public DbSet<Rate> Rates { get; set; }
         public DbSet<Result> Results { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
 
