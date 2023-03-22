@@ -2,7 +2,7 @@
 {
     internal class ElectroEnergyByMeter : CommunalServiceByMeter
     {
-        public ElectroEnergyByMeter(int scopeOfService) : base(scopeOfService) { }
-        public ElectroEnergyByMeter(int readingBefore, int readingNow) : base(readingBefore, readingNow) { }
+        public ElectroEnergyByMeter(decimal scopeOfService) : base(scopeOfService) { }
+        public ElectroEnergyByMeter(decimal readingBefore, decimal readingNow) : base(readingBefore, readingNow) { }
     }
 }

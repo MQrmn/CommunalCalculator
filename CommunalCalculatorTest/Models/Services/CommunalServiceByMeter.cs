@@ -2,17 +2,17 @@
 {
     internal abstract class CommunalServiceByMeter : CommunalService
     {
-        private protected int _scopeOfServices;
+        private protected decimal _scopeOfServices;
 
-        public CommunalServiceByMeter(int scopeOfService)
+        public CommunalServiceByMeter(decimal scopeOfService)
         {
             _scopeOfServices = scopeOfService;
         }
-        public CommunalServiceByMeter(int readingBefore, int readingNow)
+        public CommunalServiceByMeter(decimal readingBefore, decimal readingNow)
         {
             _scopeOfServices = readingNow - readingBefore;
         }
-        public int ScopeOfServices
+        public decimal ScopeOfServices
         {
             get 
             { 

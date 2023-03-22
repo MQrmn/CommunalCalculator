@@ -16,9 +16,9 @@
             return _house;
         }
 
-        internal void SetResidentsCount(int reading)
+        internal void SetResidentsCount(int residentsCount)
         {
-            _house.ResidentsCount = reading;
+            _house.ResidentsCount = residentsCount;
         }
 
         internal void SetColdWaterByNormative() 
@@ -27,13 +27,13 @@
             SetColdWaterServiceRate(service);
         }
 
-        internal void SetColdWaterByMeter(int reading) 
+        internal void SetColdWaterByMeter(decimal reading) 
         {
             var service = new ColdWaterByMeter(reading);
             SetColdWaterServiceRate(service);
         }
 
-        internal void SetColdWaterByMeter(int readingBefor, int ReadingNow) 
+        internal void SetColdWaterByMeter(decimal readingBefor, decimal ReadingNow) 
         {
             var service = new ColdWaterByMeter(readingBefor, ReadingNow);
             SetColdWaterServiceRate(service);
@@ -53,14 +53,14 @@
             SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
         }
 
-        internal void SetHeatCarrierThermalEnergyByByMeter(int reading) 
+        internal void SetHeatCarrierThermalEnergyByByMeter(decimal reading) 
         {
             var hcService = new HeatCarrierByMeter(reading);
             var teService = new ThermalEnergyByMeter(reading);
             SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
         }
 
-        internal void SetHeatCarrierThermalEnergyByMeter(int readingBefor, int ReadingNow) 
+        internal void SetHeatCarrierThermalEnergyByMeter(decimal readingBefor, decimal ReadingNow) 
         {
             var hcService = new HeatCarrierByMeter(readingBefor, ReadingNow);
             var teService = new ThermalEnergyByMeter(readingBefor, ReadingNow);
@@ -80,13 +80,13 @@
             SetElectroEnergyServiceRate(service);
         }
 
-        internal void SetElectroEnergyByMeter(int reading) 
+        internal void SetElectroEnergyByMeter(decimal reading) 
         {
             var service = new ElectroEnergyByMeter(reading);
             SetElectroEnergyServiceRate(service);
         }
 
-        internal void SetElectroEnergyByMeter(int readingBefor, int ReadingNow) 
+        internal void SetElectroEnergyByMeter(decimal readingBefor, decimal ReadingNow) 
         {
             var service = new ElectroEnergyByMeter(readingBefor, ReadingNow);
             SetElectroEnergyServiceRate(service);
@@ -98,7 +98,7 @@
             _house.ElectroEnergy = s;
         }
 
-        public void SetElectroEnergyByDayNightMeter(int dayReadingBefore, int dayReadingNow, int nightReadingBefore, int nightReadingNow)
+        public void SetElectroEnergyByDayNightMeter(decimal dayReadingBefore, decimal dayReadingNow, decimal nightReadingBefore, decimal nightReadingNow)
         {
             var eeDay = new ElectroEnergyByMeter(dayReadingBefore, dayReadingNow);
             var eeNight = new ElectroEnergyByMeter(nightReadingBefore, nightReadingNow);

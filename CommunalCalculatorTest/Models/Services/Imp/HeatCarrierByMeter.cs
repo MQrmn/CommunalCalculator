@@ -2,8 +2,8 @@
 {
     internal class HeatCarrierByMeter : CommunalServiceByMeter
     {
-        public HeatCarrierByMeter(int scopeOfService) : base(scopeOfService) { }
-        public HeatCarrierByMeter(int readingBefore, int readingNow) : base(readingBefore, readingNow) { }
+        public HeatCarrierByMeter(decimal scopeOfService) : base(scopeOfService) { }
+        public HeatCarrierByMeter(decimal readingBefore, decimal readingNow) : base(readingBefore, readingNow) { }
     
     }
 }

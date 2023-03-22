@@ -33,12 +33,12 @@ namespace CommunalCalculator
             _builder.SetColdWaterByNormative();
         }
 
-        public void SetColdWater(int reading) 
+        public void SetColdWater(decimal reading) 
         {
             _builder.SetColdWaterByMeter(reading);
         }
 
-        public void SetColdWater(int readingBefor, int readingNow) 
+        public void SetColdWater(decimal readingBefor, decimal readingNow) 
         {
             _builder.SetColdWaterByMeter(readingBefor, readingNow);
         }
@@ -48,12 +48,12 @@ namespace CommunalCalculator
             _builder.SetHeatCarrierThermalEnergyByNormative();
         }
 
-        public void SetHotWater(int reading) 
+        public void SetHotWater(decimal reading) 
         {
             _builder.SetHeatCarrierThermalEnergyByByMeter(reading);
         }
 
-        public void SetHotWater(int readingBefor, int readingNow) 
+        public void SetHotWater(decimal readingBefor, decimal readingNow) 
         {
             _builder.SetHeatCarrierThermalEnergyByMeter(readingBefor, readingNow);
         }
@@ -63,17 +63,17 @@ namespace CommunalCalculator
             _builder.SetElectroEnergyByNormative();
         }
 
-        public void SetElectroEnergy(int reading) 
+        public void SetElectroEnergy(decimal reading) 
         {
             _builder.SetElectroEnergyByMeter(reading);
         }
 
-        public void SetElectroEnergy(int readingBefore, int readingNow) 
+        public void SetElectroEnergy(decimal readingBefore, decimal readingNow) 
         {
             _builder.SetElectroEnergyByMeter(readingBefore, readingNow);
         }
 
-        public void SetElectroEnergy(int dayReadingBefore, int dayReadingNow, int nightReadingBefore, int nightReadingNow)
+        public void SetElectroEnergy(decimal dayReadingBefore, decimal dayReadingNow, decimal nightReadingBefore, decimal nightReadingNow)
         {
             _builder.SetElectroEnergyByDayNightMeter(dayReadingBefore, dayReadingNow, nightReadingBefore, nightReadingNow);
         }
