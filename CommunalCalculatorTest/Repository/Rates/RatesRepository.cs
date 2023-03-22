@@ -1,17 +1,10 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace Core
+﻿namespace Core
 {
     internal class RatesRepository : IRatesRepository
     {
-        public CommunalRate GetHeatCarrierRate()
-        {
-            return new CommunalRate() { Rate = 35.78m, Normative = 4.01m };
-        }
-
         public CommunalRate GetColdWater()
         {
-            return new CommunalRate() { Rate = 35.78m, Normative = 4.01m };
+            return new CommunalRate() { Rate = 35.78m, Normative = 4.85m };
         }
 
         public CommunalRate GetElectroEnergyCommon()
@@ -27,6 +20,11 @@ namespace Core
         public CommunalRate GetElectroEnergyNight()
         {
             return new CommunalRate() { Rate = 2.31m };
+        }
+
+        public CommunalRate GetHeatCarrierRate()
+        {
+            return new CommunalRate() { Rate = 35.78m, Normative = 4.01m };
         }
 
         public CommunalRate GetThermalEnergy()

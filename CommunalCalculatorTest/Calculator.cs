@@ -2,21 +2,25 @@
 
 namespace CommunalCalculator
 {
-    public class CommunalCalculator
+    public class Calculator
     {
         private HouseBuilder _builder;
         private House _house;
         private IRatesRepository _ratesRepository;
+        private ResultBuilder _resultBuilder;
 
-        public CommunalCalculator()
+        public Calculator()
         {
             _ratesRepository = new RatesRepository();
             _builder = new HouseBuilder(_ratesRepository);
         }
 
-        public void GetResut()
+        public CalculationResult GetResut()
         {
             _house = _builder.GetObject();
+            _resultBuilder = new ResultBuilder(_house);
+            CalculationResult resultObj = _resultBuilder.GetResult();
+            return resultObj;
         }
 
         public void SetResidentsCount(int count)
