@@ -98,6 +98,15 @@
             _house.ElectroEnergy = s;
         }
 
+        public void SetElectroEnergyByDayNightMeter(decimal dayReading, decimal nightReading)
+        {
+            var eeDay = new ElectroEnergyByMeter(dayReading);
+            var eeNight = new ElectroEnergyByMeter(nightReading);
+            eeDay.Rate = _ratesRepository.GetElectroEnergyDay();
+            eeNight.Rate = _ratesRepository.GetElectroEnergyNight();
+            _house.ElectroEnergy = new ElectroEnergyByDayNightMeter(eeDay, eeNight);
+        }
+
         public void SetElectroEnergyByDayNightMeter(decimal dayReadingBefore, decimal dayReadingNow, decimal nightReadingBefore, decimal nightReadingNow)
         {
             var eeDay = new ElectroEnergyByMeter(dayReadingBefore, dayReadingNow);

@@ -72,8 +72,12 @@ namespace CommunalCalculator
         {
             _builder.SetElectroEnergyByMeter(readingBefore, readingNow);
         }
+        public void SetElectroEnergyDayNight(decimal readingBefore, decimal readingNow)
+        {
+            _builder.SetElectroEnergyByDayNightMeter(readingBefore, readingNow);
+        }
 
-        public void SetElectroEnergy(decimal dayReadingBefore, decimal dayReadingNow, decimal nightReadingBefore, decimal nightReadingNow)
+        public void SetElectroEnergyDayNight(decimal dayReadingBefore, decimal dayReadingNow, decimal nightReadingBefore, decimal nightReadingNow)
         {
             _builder.SetElectroEnergyByDayNightMeter(dayReadingBefore, dayReadingNow, nightReadingBefore, nightReadingNow);
         }

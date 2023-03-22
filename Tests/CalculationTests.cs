@@ -90,7 +90,7 @@ namespace Tests
             var calculator = new Calculator();
             calculator.SetResidentsCount(count);
             calculator.SetColdWater(4m, 8.85m);
-            calculator.SetElectroEnergy(200m, 300m, 200m, 300m);
+            calculator.SetElectroEnergyDayNight(200m, 300m, 200m, 300m);
             calculator.SetHotWater(4m, 8.01m);
             var current = calculator.GetResut();
 
@@ -116,7 +116,7 @@ namespace Tests
             var calculator = new Calculator();
             calculator.SetResidentsCount(count);
             calculator.SetColdWater();
-            calculator.SetElectroEnergy(200m, 300m, 200m, 300m);
+            calculator.SetElectroEnergyDayNight(100m, 100m);
             calculator.SetHotWater(4m, 8.01m);
             var current = calculator.GetResut();
 
