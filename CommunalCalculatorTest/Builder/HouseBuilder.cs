@@ -1,6 +1,6 @@
 ﻿namespace Core
 {
-    internal class HouseBuilder
+    public class HouseBuilder
     {
         private House _house;
         private IRatesRepository _ratesRepository;

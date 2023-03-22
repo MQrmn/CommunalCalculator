@@ -1,6 +1,6 @@
 ﻿namespace Core
 {
-    internal class House
+    public class House
     {
         internal CommunalService ColdWater { get; set; }
         internal CommunalService ThermalEnergy { get; set; }

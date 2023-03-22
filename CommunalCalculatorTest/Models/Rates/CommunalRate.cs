@@ -1,8 +1,8 @@
 ﻿namespace Core
 {
-    internal class CommunalRate
+    public class CommunalRate
     {
-        internal decimal Cost { get; set; }
-        internal decimal Normative { get; set; }
+        public decimal Cost { get; set; }
+        public decimal Normative { get; set; }
     }
 }

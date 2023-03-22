@@ -7,22 +7,24 @@ namespace CommunalCalculator
 {
     public class Calculator
     {
-        private HouseBuilder _builder;
-        private House _house;
-        private IRatesRepository _ratesRepositoryStub;
-        private IRatesRepository _ratesRepository;
+        public HouseBuilder _builder;
+        public House _house;
+        public IRatesRepository _ratesRepositoryStub;
+        public IRatesRepository _ratesRepository;
         private ResultBuilder _resultBuilder;
-        private AppDbContext _dbContext;
-        private static IMapper _mapper;
+        public AppDbContext _dbContext;
+        public static IMapper _mapper;
 
         public Calculator()
         {
-            _ratesRepositoryStub = new RatesRepositoryStub();
-            _builder = new HouseBuilder(_ratesRepositoryStub);
+            CreateMapper();
             _dbContext = new AppDbContext();
             _ratesRepository = new RatesRepository(_dbContext, _mapper);
-            CreateMapper();
-            FillDb();
+            _builder = new HouseBuilder(_ratesRepository);
+            
+
+            _ratesRepositoryStub = new RatesRepositoryStub();
+            //FillDb();
         }
 
         private void CreateMapper()

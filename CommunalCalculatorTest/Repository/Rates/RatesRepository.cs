@@ -4,11 +4,11 @@ using AutoMapper;
 
 namespace Core
 {
-    internal class RatesRepository : IRatesRepository
+    public class RatesRepository : IRatesRepository
     {
         private AppDbContext _dbContext;
         private IMapper _mapper;
-
+        
         public RatesRepository(AppDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
@@ -16,35 +16,41 @@ namespace Core
         }
         public CommunalRate GetColdWater()
         {
-            var r = _dbContext.Rates.Where(p => p.ServiceTypeId == 1).ToList<Rate>();
-
-
-            throw new NotImplementedException();
+            return GetRateByServiceType((int)Enums.ServiceTypes.ColdWater);
         }
 
         public CommunalRate GetElectroEnergyCommon()
         {
-            throw new NotImplementedException();
+            return GetRateByServiceType((int)Enums.ServiceTypes.ElectroEnergyCommon);
         }
 
         public CommunalRate GetElectroEnergyDay()
         {
-            throw new NotImplementedException();
+            return GetRateByServiceType((int)Enums.ServiceTypes.ElectroEnergyDay);
         }
 
         public CommunalRate GetElectroEnergyNight()
         {
-            throw new NotImplementedException();
+            return GetRateByServiceType((int)Enums.ServiceTypes.ElectroEnergyNight);
         }
 
         public CommunalRate GetHeatCarrierRate()
         {
-            throw new NotImplementedException();
+            return GetRateByServiceType((int)Enums.ServiceTypes.HeatCarrier);
         }
 
         public CommunalRate GetThermalEnergy()
         {
-            throw new NotImplementedException();
+            return GetRateByServiceType((int)Enums.ServiceTypes.ThermalEnergy);
+        }
+
+        private CommunalRate GetRateByServiceType(int type)
+        {
+            var r = _dbContext.Rates.Where(p => p.ServiceTypeId == type).OrderBy(p => p.Id).Last();
+
+            //return new CommunalRate() { Cost = r[0].Cost, Normative = r[0].Normative };
+
+            return _mapper.Map<CommunalRate>(r);
         }
     }
 }
