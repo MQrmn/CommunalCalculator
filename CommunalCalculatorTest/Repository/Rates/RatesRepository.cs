@@ -47,9 +47,6 @@ namespace Core
         private CommunalRate GetRateByServiceType(int type)
         {
             var r = _dbContext.Rates.Where(p => p.ServiceTypeId == type).OrderBy(p => p.Id).Last();
-
-            //return new CommunalRate() { Cost = r[0].Cost, Normative = r[0].Normative };
-
             return _mapper.Map<CommunalRate>(r);
         }
     }
