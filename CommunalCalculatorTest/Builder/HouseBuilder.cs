@@ -24,22 +24,22 @@
         internal void SetColdWaterByNormative() 
         {
             var service = new ColdWaterByNormative(_house.ResidentsCount);
-            SetColdWaterServices(service);
+            SetColdWaterServiceRate(service);
         }
 
         internal void SetColdWaterByMeter(int reading) 
         {
             var service = new ColdWaterByMeter(reading);
-            SetColdWaterServices(service);
+            SetColdWaterServiceRate(service);
         }
 
         internal void SetColdWaterByMeter(int readingBefor, int ReadingNow) 
         {
             var service = new ColdWaterByMeter(readingBefor, ReadingNow);
-            SetColdWaterServices(service);
+            SetColdWaterServiceRate(service);
         }
 
-        private void SetColdWaterServices(CommunalService s)
+        private void SetColdWaterServiceRate(CommunalService s)
         {
             s.Rate = _ratesRepository.GetColdWater();
             _house.ColdWater = s;
@@ -48,25 +48,26 @@
         internal void SetHeatCarrierThermalEnergyByNormative() 
         {
             var hcService = new HeatCarrierByNormative(_house.ResidentsCount);
-            var teService = new ThermalEnergy();
-            SetHeatCarrierThermalEnergyServices(hcService, teService);
+            var teService = new ThermalEnergyByNormative(_house.ResidentsCount);
+            teService.HeatCarrierRate = _ratesRepository.GetHeatCarrierRate();
+            SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
         }
 
         internal void SetHeatCarrierThermalEnergyByByMeter(int reading) 
         {
             var hcService = new HeatCarrierByMeter(reading);
-            var teService = new ThermalEnergy();
-            SetHeatCarrierThermalEnergyServices(hcService, teService);
+            var teService = new ThermalEnergyByMeter(reading);
+            SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
         }
 
         internal void SetHeatCarrierThermalEnergyByMeter(int readingBefor, int ReadingNow) 
         {
             var hcService = new HeatCarrierByMeter(readingBefor, ReadingNow);
-            var teService = new ThermalEnergy();
-            SetHeatCarrierThermalEnergyServices(hcService, teService);
+            var teService = new ThermalEnergyByMeter(readingBefor, ReadingNow);
+            SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
         }
 
-        private void SetHeatCarrierThermalEnergyServices(CommunalService hcService, CommunalService teService)
+        private void SetHeatCarrierThermalEnergyServiceRate(CommunalService hcService, CommunalService teService)
         {
             hcService.Rate = _ratesRepository.GetHeatCarrierRate();
             teService.Rate = _ratesRepository.GetThermalEnergy();
@@ -76,22 +77,22 @@
         internal void SetElectroEnergyByNormative() 
         {
             var service = new ElectroEnergyByNormative(_house.ResidentsCount);
-            SetElectroEnergyServices(service);
+            SetElectroEnergyServiceRate(service);
         }
 
         internal void SetElectroEnergyByMeter(int reading) 
         {
             var service = new ElectroEnergyByMeter(reading);
-            SetElectroEnergyServices(service);
+            SetElectroEnergyServiceRate(service);
         }
 
         internal void SetElectroEnergyByMeter(int readingBefor, int ReadingNow) 
         {
             var service = new ElectroEnergyByMeter(readingBefor, ReadingNow);
-            SetElectroEnergyServices(service);
+            SetElectroEnergyServiceRate(service);
         }
 
-        private void SetElectroEnergyServices(CommunalService s)
+        private void SetElectroEnergyServiceRate(CommunalService s)
         {
             s.Rate = _ratesRepository.GetElectroEnergyCommon();
             _house.ElectroEnergy = s;
@@ -101,13 +102,9 @@
         {
             var eeDay = new ElectroEnergyByMeter(dayReadingBefore, dayReadingNow);
             var eeNight = new ElectroEnergyByMeter(nightReadingBefore, nightReadingNow);
-
             eeDay.Rate = _ratesRepository.GetElectroEnergyDay();
             eeNight.Rate = _ratesRepository.GetElectroEnergyNight();
-
             _house.ElectroEnergy = new ElectroEnergyByDayNightMeter(eeDay, eeNight);
         }
-
-
     }
 }

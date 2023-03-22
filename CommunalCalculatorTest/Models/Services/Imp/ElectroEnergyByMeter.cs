@@ -4,6 +4,5 @@
     {
         public ElectroEnergyByMeter(int scopeOfService) : base(scopeOfService) { }
         public ElectroEnergyByMeter(int readingBefore, int readingNow) : base(readingBefore, readingNow) { }
-
     }
 }
