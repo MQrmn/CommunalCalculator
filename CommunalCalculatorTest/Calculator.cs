@@ -1,4 +1,5 @@
 ﻿using Core;
+using DataEF;
 
 namespace CommunalCalculator
 {
@@ -8,11 +9,13 @@ namespace CommunalCalculator
         private House _house;
         private IRatesRepository _ratesRepository;
         private ResultBuilder _resultBuilder;
+        private AppDbContext _dbContext;
 
         public Calculator()
         {
             _ratesRepository = new RatesRepository();
             _builder = new HouseBuilder(_ratesRepository);
+            _dbContext = new AppDbContext();
         }
 
         public CalculationResult GetResut()
