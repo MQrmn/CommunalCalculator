@@ -9,7 +9,7 @@
 
         internal override decimal GetSalary()
         {
-            return this.ResidentsCount *  this.HeatCarrierRate.Normative * this.Rate.Normative * this.Rate.Rate;
+            return this.ResidentsCount *  this.HeatCarrierRate.Normative * this.Rate.Normative * this.Rate.Cost;
         }
     }
 }

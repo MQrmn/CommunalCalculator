@@ -27,7 +27,7 @@
 
         internal override decimal GetSalary()
         {
-            return Rate.Rate * _scopeOfServices;
+            return Rate.Cost * _scopeOfServices;
         }
     }
 }

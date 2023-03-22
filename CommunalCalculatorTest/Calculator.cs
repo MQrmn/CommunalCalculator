@@ -1,5 +1,7 @@
 ﻿using Core;
 using DataEF;
+using AutoMapper;
+using Core.Mapping;
 
 namespace CommunalCalculator
 {
@@ -11,13 +13,23 @@ namespace CommunalCalculator
         private IRatesRepository _ratesRepository;
         private ResultBuilder _resultBuilder;
         private AppDbContext _dbContext;
+        private static IMapper _mapper;
 
         public Calculator()
         {
             _ratesRepositoryStub = new RatesRepositoryStub();
             _builder = new HouseBuilder(_ratesRepositoryStub);
             _dbContext = new AppDbContext();
+            _ratesRepository = new RatesRepository(_dbContext, _mapper);
+            CreateMapper();
             FillDb();
+        }
+
+        private void CreateMapper()
+        {
+            var mapperConfiguration = new MapperConfiguration(x => x.AddProfile<MappingProfile>());
+            mapperConfiguration.AssertConfigurationIsValid();
+            _mapper = mapperConfiguration.CreateMapper();
         }
         
         // TESTING DB
@@ -58,7 +70,7 @@ namespace CommunalCalculator
             var dbCw = new Rate()
             {
                 Id = 1,
-                Cost = cw.Rate,
+                Cost = cw.Cost,
                 Normative = cw.Normative,
                 ServiceTypeId = 1
             };
@@ -68,7 +80,7 @@ namespace CommunalCalculator
             var eeDb = new Rate()
             {
                 Id = 2,
-                Cost = ee.Rate,
+                Cost = ee.Cost,
                 Normative = ee.Normative,
                 ServiceTypeId = 2
             };
@@ -78,7 +90,7 @@ namespace CommunalCalculator
             var eeDayDb = new Rate()
             {
                 Id = 3,
-                Cost = eeDay.Rate,
+                Cost = eeDay.Cost,
                 Normative = eeDay.Normative,
                 ServiceTypeId = 3
             };
@@ -88,7 +100,7 @@ namespace CommunalCalculator
             var eeNightDb = new Rate()
             {
                 Id = 4,
-                Cost = eeNight.Rate,
+                Cost = eeNight.Cost,
                 Normative = eeNight.Normative,
                 ServiceTypeId = 4
             };
@@ -98,7 +110,7 @@ namespace CommunalCalculator
             var hcDb = new Rate()
             {
                 Id = 5,
-                Cost = hc.Rate,
+                Cost = hc.Cost,
                 Normative = hc.Normative,
                 ServiceTypeId = 5
             };
@@ -108,7 +120,7 @@ namespace CommunalCalculator
             var teDb = new Rate()
             {
                 Id = 6,
-                Cost = te.Rate,
+                Cost = te.Cost,
                 Normative = te.Normative,
                 ServiceTypeId = 6
             };
