@@ -103,7 +103,7 @@ namespace CommunalCalculator
                 ServiceTypeId = 5
             };
 
-            var te = _ratesRepositoryStub.GetHeatCarrierRate();
+            var te = _ratesRepositoryStub.GetThermalEnergy();
 
             var teDb = new Rate()
             {
