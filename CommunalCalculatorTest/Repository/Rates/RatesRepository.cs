@@ -16,37 +16,37 @@ namespace Core
         }
         public CommunalRate GetColdWater()
         {
-            return GetRateByServiceType((int)Enums.ServiceTypes.ColdWater);
+            return GetRateByServiceType(Enums.ServiceTypes.ColdWater);
         }
 
         public CommunalRate GetElectroEnergyCommon()
         {
-            return GetRateByServiceType((int)Enums.ServiceTypes.ElectroEnergyCommon);
+            return GetRateByServiceType(Enums.ServiceTypes.ElectroEnergyCommon);
         }
 
         public CommunalRate GetElectroEnergyDay()
         {
-            return GetRateByServiceType((int)Enums.ServiceTypes.ElectroEnergyDay);
+            return GetRateByServiceType(Enums.ServiceTypes.ElectroEnergyDay);
         }
 
         public CommunalRate GetElectroEnergyNight()
         {
-            return GetRateByServiceType((int)Enums.ServiceTypes.ElectroEnergyNight);
+            return GetRateByServiceType(Enums.ServiceTypes.ElectroEnergyNight);
         }
 
         public CommunalRate GetHeatCarrierRate()
         {
-            return GetRateByServiceType((int)Enums.ServiceTypes.HeatCarrier);
+            return GetRateByServiceType(Enums.ServiceTypes.HeatCarrier);
         }
 
         public CommunalRate GetThermalEnergy()
         {
-            return GetRateByServiceType((int)Enums.ServiceTypes.ThermalEnergy);
+            return GetRateByServiceType(Enums.ServiceTypes.ThermalEnergy);
         }
 
-        private CommunalRate GetRateByServiceType(int type)
+        private CommunalRate GetRateByServiceType(Enums.ServiceTypes type)
         {
-            var r = _dbContext.Rates.Where(p => p.ServiceTypeId == type).OrderBy(p => p.Id).Last();
+            var r = _dbContext.Rates.Where(p => p.ServiceType == (int)type).OrderBy(p => p.Id).Last();
             return _mapper.Map<CommunalRate>(r);
         }
     }

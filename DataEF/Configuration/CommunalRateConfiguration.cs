@@ -11,9 +11,9 @@ namespace DataEF
             builder.Property(p => p.Cost).IsRequired();
             builder.Property(p => p.Normative);
 
-            builder.HasOne<ServiceType>(p => p.ServiceTypes)
+            builder.HasOne<ServiceType>(p => p.ServiceTypeId)
                 .WithMany(p => p.Rates)
-                .HasForeignKey(p => p.ServiceTypeId);
+                .HasForeignKey(p => p.ServiceType);
         }
     }
 }

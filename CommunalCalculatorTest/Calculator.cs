@@ -21,10 +21,8 @@ namespace CommunalCalculator
             _dbContext = new AppDbContext();
             _ratesRepository = new RatesRepository(_dbContext, _mapper);
             _builder = new HouseBuilder(_ratesRepository);
-            
-
             _ratesRepositoryStub = new RatesRepositoryStub();
-            //FillDb();
+            FillDb();
         }
 
         private void CreateMapper()
@@ -74,7 +72,7 @@ namespace CommunalCalculator
                 Id = 1,
                 Cost = cw.Cost,
                 Normative = cw.Normative,
-                ServiceTypeId = 1
+                ServiceType = 1
             };
 
             var ee = _ratesRepositoryStub.GetElectroEnergyCommon();
@@ -84,7 +82,7 @@ namespace CommunalCalculator
                 Id = 2,
                 Cost = ee.Cost,
                 Normative = ee.Normative,
-                ServiceTypeId = 2
+                ServiceType = 2
             };
 
             var eeDay = _ratesRepositoryStub.GetElectroEnergyDay();
@@ -94,7 +92,7 @@ namespace CommunalCalculator
                 Id = 3,
                 Cost = eeDay.Cost,
                 Normative = eeDay.Normative,
-                ServiceTypeId = 3
+                ServiceType = 3
             };
 
             var eeNight = _ratesRepositoryStub.GetElectroEnergyNight();
@@ -104,7 +102,7 @@ namespace CommunalCalculator
                 Id = 4,
                 Cost = eeNight.Cost,
                 Normative = eeNight.Normative,
-                ServiceTypeId = 4
+                ServiceType = 4
             };
 
             var hc = _ratesRepositoryStub.GetHeatCarrierRate();
@@ -114,7 +112,7 @@ namespace CommunalCalculator
                 Id = 5,
                 Cost = hc.Cost,
                 Normative = hc.Normative,
-                ServiceTypeId = 5
+                ServiceType = 5
             };
 
             var te = _ratesRepositoryStub.GetThermalEnergy();
@@ -124,7 +122,7 @@ namespace CommunalCalculator
                 Id = 6,
                 Cost = te.Cost,
                 Normative = te.Normative,
-                ServiceTypeId = 6
+                ServiceType = 6
             };
 
             _dbContext.ServiceTypes.Add(st1);
@@ -144,11 +142,11 @@ namespace CommunalCalculator
             _dbContext.SaveChanges();
         }
 
-        public CalculationResult GetResut()
+        public ResultCommon GetResut()
         {
             _house = _builder.GetObject();
             _resultBuilder = new ResultBuilder(_house);
-            CalculationResult resultObj = _resultBuilder.GetResult();
+            ResultCommon resultObj = _resultBuilder.GetResult();
             return resultObj;
         }
 

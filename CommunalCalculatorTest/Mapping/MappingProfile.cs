@@ -7,7 +7,8 @@ namespace Core.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Rate, CommunalRate>();
+            CreateMap<Rate, CommunalRate>().ReverseMap();
+            CreateMap<Result, ServiceResult>().ReverseMap();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace DataEF
 
         public AppDbContext()
         {
-            //Database.EnsureDeleted();
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

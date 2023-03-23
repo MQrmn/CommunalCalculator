@@ -2,15 +2,15 @@
 {
     internal class ResultBuilder
     {
-        private CalculationResult _result;
+        private ResultCommon _result;
         private House _house;
         internal ResultBuilder(House house) 
         {
             _house = house;
-            _result = new CalculationResult();
+            _result = new ResultCommon();
         }
 
-        public CalculationResult GetResult()
+        public ResultCommon GetResult()
         {
             var cw = _house.ColdWater.GetSalary();
             var hc = _house.HeatCarrier.GetSalary();

@@ -8,6 +8,7 @@
         {
             _day = day;
             _night = night;
+            Type = Enums.ServiceTypes.ElectroEnergyCommon;
         }
         internal override decimal GetSalary()
         {

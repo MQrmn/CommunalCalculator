@@ -5,6 +5,7 @@
         public CommunalRate HeatCarrierRate { get; set; }
         public ThermalEnergyByNormative(int residentsCount) : base(residentsCount)
         {
+            Type = Enums.ServiceTypes.ThermalEnergy;
         }
 
         internal override decimal GetSalary()

@@ -5,7 +5,8 @@
         public int Id { get; set; } 
         public decimal VolumeOfServices { get; set; }
         public decimal Cost { get; set; }
-        public ServiceType ServiceTypes { get; set; }
+        public int ServiceType { get; set; }
+        public ServiceType ServiceTypeID { get; set; }
 
     }
 }

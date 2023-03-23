@@ -8,6 +8,9 @@ namespace DataEF
         public void Configure(EntityTypeBuilder<Result> builder)
         {
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
+            builder.HasOne<ServiceType>(p => p.ServiceTypeID)
+                .WithMany(p => p.Results)
+                .HasForeignKey(p => p.ServiceType);
         }
     }
 }
