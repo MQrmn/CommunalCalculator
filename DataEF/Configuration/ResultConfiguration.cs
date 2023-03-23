@@ -11,6 +11,9 @@ namespace DataEF.Configuration
             builder.HasOne<ServiceType>(p => p.ServiceTypeId)
                 .WithMany(p => p.Results)
                 .HasForeignKey(p => p.ServiceType);
+            builder.HasOne<BillingPeriod>(p => p.BillingPeriodId)
+                .WithMany(p => p.Results)
+                .HasForeignKey(p => p.BillingPeriod);
         }
     }
 }

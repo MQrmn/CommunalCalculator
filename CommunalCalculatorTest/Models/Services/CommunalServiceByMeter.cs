@@ -4,10 +4,7 @@
     {
         public decimal PreviousValue { get; set; }
         public decimal CurrentValue { get; set; }
-        public CommunalServiceByMeter()
-        {
-
-        }
+        public CommunalServiceByMeter() { }
         public CommunalServiceByMeter(decimal previousValue, decimal currentValue)
         {
             PreviousValue = previousValue;

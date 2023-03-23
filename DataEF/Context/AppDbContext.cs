@@ -8,7 +8,7 @@ namespace DataEF
         public DbSet<Rate> Rates { get; set; }
         public DbSet<Result> Results { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
-        public DbSet<ServiceVolume> ServiceVolumes { get; set; }
+        public DbSet<MeterValue> MeterValues { get; set; }
 
         public AppDbContext()
         {
@@ -26,7 +26,8 @@ namespace DataEF
             modelBuilder.ApplyConfiguration(new CommunalRateConfiguration());
             modelBuilder.ApplyConfiguration(new ResultConfiguration());
             modelBuilder.ApplyConfiguration(new ServiceTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new ServiceVolumeConfiguration());
+            modelBuilder.ApplyConfiguration(new MeterValueConfiguration());
+            modelBuilder.ApplyConfiguration(new BillingPeriodConfiguration());
         }
     }
 }

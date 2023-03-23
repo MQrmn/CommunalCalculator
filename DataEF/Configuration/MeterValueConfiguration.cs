@@ -3,15 +3,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataEF.Configuration
 {
-    internal class ServiceVolumeConfiguration : IEntityTypeConfiguration<ServiceVolume>
+    internal class MeterValueConfiguration : IEntityTypeConfiguration<MeterValue>
     {
-        public void Configure(EntityTypeBuilder<ServiceVolume> builder)
+        public void Configure(EntityTypeBuilder<MeterValue> builder)
         {
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
             builder.Property(p => p.Volume).IsRequired();
             builder.HasOne<ServiceType>(p => p.ServiceTypeId)
-                .WithMany(p => p.Volumes)
+                .WithMany(p => p.Values)
                 .HasForeignKey(p => p.ServiceType);
+            builder.HasOne<BillingPeriod>(p => p.BillingPeriodId)
+                .WithMany(p => p.MeterValues)
+                .HasForeignKey(p => p.BillingPeriod);
         }
         
     }
