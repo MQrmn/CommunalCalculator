@@ -12,19 +12,32 @@ namespace Core
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public void Addresult(ResultCommon result)
+        public void Addresult(ServiceResult result)
         {
-            throw new NotImplementedException();
+            var r = _mapper.Map<Result>(result);
+            _dbContext.Results.Add(r);
         }
 
-        public void CheckIsresultsByServiceType(Enums.ServiceTypes type)
+        public bool CheckIsresultsByServiceType(Enums.ServiceTypes type)
         {
-            throw new NotImplementedException();
+            var dbResult = _dbContext.Results.Where(p => p.ServiceType == (int)type).Count();
+            if (dbResult > 0)
+                return true;
+
+            return false;
         }
 
-        public void GetResultsByServiceType(Enums.ServiceTypes type)
+        public List<ServiceResult> GetResultsByServiceType(Enums.ServiceTypes type)
         {
-            throw new NotImplementedException();
+            var dbResult = _dbContext.Results.Where(p => p.ServiceType == (int)type).ToList();
+            var results = new List<ServiceResult>(dbResult.Count);
+            
+            foreach(var r in dbResult) 
+            {
+                results.Add(_mapper.Map<ServiceResult>(r));
+            }
+
+            return results;
         }
     }
 }

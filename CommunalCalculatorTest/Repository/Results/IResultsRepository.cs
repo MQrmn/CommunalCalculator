@@ -2,8 +2,8 @@
 {
     internal interface IResultsRepository
     {
-        public void Addresult(ResultCommon result);
-        public void GetResultsByServiceType(Enums.ServiceTypes type);
-        public void CheckIsresultsByServiceType(Enums.ServiceTypes type);
+        public void Addresult(ServiceResult result);
+        public List<ServiceResult> GetResultsByServiceType(Enums.ServiceTypes type);
+        public bool CheckIsresultsByServiceType(Enums.ServiceTypes type);
     }
 }
