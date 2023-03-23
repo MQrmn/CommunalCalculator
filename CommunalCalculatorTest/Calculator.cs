@@ -11,6 +11,7 @@ namespace CommunalCalculator
         public House _house;
         public IRatesRepository _ratesRepositoryStub;
         public IRatesRepository _ratesRepository;
+        private IResultsRepository _resultsRepository;
         private ResultBuilder _resultBuilder;
         public AppDbContext _dbContext;
         public static IMapper _mapper;
@@ -20,7 +21,8 @@ namespace CommunalCalculator
             CreateMapper();
             _dbContext = new AppDbContext();
             _ratesRepository = new RatesRepository(_dbContext, _mapper);
-            _builder = new HouseBuilder(_ratesRepository);
+            _resultsRepository = new ResultsRepository(_dbContext, _mapper);
+            _builder = new HouseBuilder(_ratesRepository, _resultsRepository);
             _ratesRepositoryStub = new RatesRepositoryStub();
             FillDb();
         }
@@ -160,14 +162,9 @@ namespace CommunalCalculator
             _builder.SetColdWaterByNormative();
         }
 
-        public void SetColdWater(decimal reading) 
+        public void SetColdWater(decimal currentMeterValue) 
         {
-            _builder.SetColdWaterByMeter(reading);
-        }
-
-        public void SetColdWater(decimal readingBefor, decimal readingNow) 
-        {
-            _builder.SetColdWaterByMeter(readingBefor, readingNow);
+            _builder.SetColdWaterByMeter(currentMeterValue);
         }
 
         public void SetHotWater() 
@@ -175,14 +172,9 @@ namespace CommunalCalculator
             _builder.SetHeatCarrierThermalEnergyByNormative();
         }
 
-        public void SetHotWater(decimal reading) 
+        public void SetHotWater(decimal currentMeterValue) 
         {
-            _builder.SetHeatCarrierThermalEnergyByByMeter(reading);
-        }
-
-        public void SetHotWater(decimal readingBefor, decimal readingNow) 
-        {
-            _builder.SetHeatCarrierThermalEnergyByMeter(readingBefor, readingNow);
+            _builder.SetHeatCarrierThermalEnergyByByMeter(currentMeterValue);
         }
 
         public void SetElectroEnergy() 
@@ -190,24 +182,14 @@ namespace CommunalCalculator
             _builder.SetElectroEnergyByNormative();
         }
 
-        public void SetElectroEnergy(decimal reading) 
+        public void SetElectroEnergy(decimal currentMeterValue) 
         {
-            _builder.SetElectroEnergyByMeter(reading);
+            _builder.SetElectroEnergyByMeter(currentMeterValue);
         }
 
-        public void SetElectroEnergy(decimal readingBefore, decimal readingNow) 
+        public void SetElectroEnergy(decimal currentMeterValueDay, decimal currentMeterValueNight) 
         {
-            _builder.SetElectroEnergyByMeter(readingBefore, readingNow);
+            _builder.SetElectroEnergyByDayNightMeter(currentMeterValueDay, currentMeterValueNight);
         }
-        public void SetElectroEnergyDayNight(decimal readingBefore, decimal readingNow)
-        {
-            _builder.SetElectroEnergyByDayNightMeter(readingBefore, readingNow);
-        }
-
-        public void SetElectroEnergyDayNight(decimal dayReadingBefore, decimal dayReadingNow, decimal nightReadingBefore, decimal nightReadingNow)
-        {
-            _builder.SetElectroEnergyByDayNightMeter(dayReadingBefore, dayReadingNow, nightReadingBefore, nightReadingNow);
-        }
-
     }
 }

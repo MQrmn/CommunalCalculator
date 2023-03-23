@@ -7,11 +7,13 @@ namespace Core
     {
         private AppDbContext _dbContext;
         private IMapper _mapper;
+
         public ResultsRepository(AppDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
         }
+
         public void Addresult(ServiceResult result)
         {
             var r = _mapper.Map<Result>(result);

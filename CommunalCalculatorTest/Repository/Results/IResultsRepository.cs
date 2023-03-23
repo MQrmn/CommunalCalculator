@@ -1,6 +1,6 @@
 ﻿namespace Core
 {
-    internal interface IResultsRepository
+    public interface IResultsRepository
     {
         public void Addresult(ServiceResult result);
         public List<ServiceResult> GetResultsByServiceType(Enums.ServiceTypes type);

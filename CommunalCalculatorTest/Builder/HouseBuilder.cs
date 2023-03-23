@@ -4,11 +4,13 @@
     {
         private House _house;
         private IRatesRepository _ratesRepository;
+        private IResultsRepository _resultsRepository;
 
-        public HouseBuilder(IRatesRepository ratesRepository)
+        public HouseBuilder(IRatesRepository ratesRepository, IResultsRepository resultsRepository)
         {
             _house = new House();
             _ratesRepository = ratesRepository;
+            _resultsRepository = resultsRepository;
         }
 
         internal House GetObject()
@@ -27,15 +29,11 @@
             SetColdWaterServiceRate(service);
         }
 
-        internal void SetColdWaterByMeter(decimal reading) 
+        internal void SetColdWaterByMeter(decimal currentMeterValue) 
         {
-            var service = new ColdWaterByMeter(reading);
-            SetColdWaterServiceRate(service);
-        }
-
-        internal void SetColdWaterByMeter(decimal readingBefor, decimal ReadingNow) 
-        {
-            var service = new ColdWaterByMeter(readingBefor, ReadingNow);
+            // Get previous values from db
+            var previousMeterValue = 0m;
+            var service = new ColdWaterByMeter(previousMeterValue, currentMeterValue);
             SetColdWaterServiceRate(service);
         }
 
@@ -53,17 +51,12 @@
             SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
         }
 
-        internal void SetHeatCarrierThermalEnergyByByMeter(decimal reading) 
+        internal void SetHeatCarrierThermalEnergyByByMeter(decimal currentMeterValue) 
         {
-            var hcService = new HeatCarrierByMeter(reading);
-            var teService = new ThermalEnergyByMeter(reading);
-            SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
-        }
-
-        internal void SetHeatCarrierThermalEnergyByMeter(decimal readingBefor, decimal ReadingNow) 
-        {
-            var hcService = new HeatCarrierByMeter(readingBefor, ReadingNow);
-            var teService = new ThermalEnergyByMeter(readingBefor, ReadingNow);
+            // Get previous values from db
+            var previousMeterValue = 0m;
+            var hcService = new HeatCarrierByMeter(previousMeterValue, currentMeterValue);
+            var teService = new ThermalEnergyByMeter(currentMeterValue - previousMeterValue);
             SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
         }
 
@@ -82,13 +75,8 @@
 
         internal void SetElectroEnergyByMeter(decimal reading) 
         {
+            // Get previous values from db
             var service = new ElectroEnergyByMeter(reading);
-            SetElectroEnergyServiceRate(service);
-        }
-
-        internal void SetElectroEnergyByMeter(decimal readingBefor, decimal ReadingNow) 
-        {
-            var service = new ElectroEnergyByMeter(readingBefor, ReadingNow);
             SetElectroEnergyServiceRate(service);
         }
 
@@ -98,19 +86,13 @@
             _house.ElectroEnergy = s;
         }
 
-        public void SetElectroEnergyByDayNightMeter(decimal dayReading, decimal nightReading)
+        public void SetElectroEnergyByDayNightMeter(decimal currentValueDay, decimal currentValueNight)
         {
-            var eeDay = new ElectroEnergyByMeter(dayReading);
-            var eeNight = new ElectroEnergyByMeter(nightReading);
-            eeDay.Rate = _ratesRepository.GetElectroEnergyDay();
-            eeNight.Rate = _ratesRepository.GetElectroEnergyNight();
-            _house.ElectroEnergy = new ElectroEnergyByDayNightMeter(eeDay, eeNight);
-        }
-
-        public void SetElectroEnergyByDayNightMeter(decimal dayReadingBefore, decimal dayReadingNow, decimal nightReadingBefore, decimal nightReadingNow)
-        {
-            var eeDay = new ElectroEnergyByMeter(dayReadingBefore, dayReadingNow);
-            var eeNight = new ElectroEnergyByMeter(nightReadingBefore, nightReadingNow);
+            // Get previous values from db
+            var previousValueDay = 0m;
+            var previousValueNight = 0m;
+            var eeDay = new ElectroEnergyByMeter(previousValueDay, currentValueDay);
+            var eeNight = new ElectroEnergyByMeter(previousValueNight, currentValueNight);
             eeDay.Rate = _ratesRepository.GetElectroEnergyDay();
             eeNight.Rate = _ratesRepository.GetElectroEnergyNight();
             _house.ElectroEnergy = new ElectroEnergyByDayNightMeter(eeDay, eeNight);
