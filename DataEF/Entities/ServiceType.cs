@@ -6,5 +6,6 @@
         public string ServiceTypeName { get; set; }
         public ICollection<Rate> Rates { get; set; }
         public ICollection<Result> Results { get; set; }
+        public ICollection<ServiceVolume> Volumes { get; set; }
     }
 }

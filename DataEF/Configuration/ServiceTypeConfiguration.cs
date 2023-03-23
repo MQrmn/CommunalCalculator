@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataEF
+namespace DataEF.Configuration
 {
     internal class ServiceTypeConfiguration : IEntityTypeConfiguration<ServiceType>
     {

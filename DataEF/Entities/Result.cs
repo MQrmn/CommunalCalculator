@@ -6,7 +6,7 @@
         public decimal VolumeOfServices { get; set; }
         public decimal Cost { get; set; }
         public int ServiceType { get; set; }
-        public ServiceType ServiceTypeID { get; set; }
+        public ServiceType ServiceTypeId { get; set; }
 
     }
 }
