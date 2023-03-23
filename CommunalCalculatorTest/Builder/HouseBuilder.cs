@@ -4,13 +4,11 @@
     {
         private House _house;
         private IRatesRepository _ratesRepository;
-        private IResultsRepository _resultsRepository;
 
         public HouseBuilder(IRatesRepository ratesRepository, IResultsRepository resultsRepository)
         {
             _house = new House();
             _ratesRepository = ratesRepository;
-            _resultsRepository = resultsRepository;
         }
 
         internal House GetObject()
