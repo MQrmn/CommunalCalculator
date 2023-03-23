@@ -2,14 +2,16 @@
 {
     internal class ThermalEnergyByMeter : CommunalServiceByMeter
     {
-        public ThermalEnergyByMeter(decimal scopeOfService) : base(scopeOfService) 
+        public decimal ServiceVolume { get; set; }
+        public ThermalEnergyByMeter(decimal serviceVolume) 
         {
             Type = Enums.ServiceTypes.ThermalEnergy;
+            ServiceVolume = serviceVolume;
         }
 
         internal override decimal GetSalary()
         {
-            return this._serviceVolume * this.Rate.Normative * this.Rate.Cost;
+            return this.ServiceVolume * this.Rate.Normative * this.Rate.Cost;
         }
     }
 }
