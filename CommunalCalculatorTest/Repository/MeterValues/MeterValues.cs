@@ -2,7 +2,7 @@
 {
     internal class MeterValues : IMeterValues
     {
-        public void PutVolume()
+        public void PutValue()
         {
             throw new NotImplementedException();
         }

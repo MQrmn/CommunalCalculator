@@ -2,7 +2,7 @@
 {
     internal interface IMeterValues
     {
-        public void PutVolume();
+        public void PutValue();
         
     }
 }
