@@ -2,13 +2,11 @@
 {
     internal class ElectroEnergyByMeter : CommunalServiceByMeter
     {
-        public ElectroEnergyByMeter(decimal scopeOfService) : base(scopeOfService) 
-        { 
-            Type = Enums.ServiceTypes.ElectroEnergyCommon; 
-        }
-        public ElectroEnergyByMeter(decimal readingBefore, decimal readingNow) : base(readingBefore, readingNow) 
+        public ElectroEnergyByMeter(decimal previousValue, decimal currentValue) : base(previousValue, currentValue) 
         { 
             Type = Enums.ServiceTypes.ElectroEnergyCommon; 
         }
     }
 }
+
+

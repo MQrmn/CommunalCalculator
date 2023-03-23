@@ -2,32 +2,33 @@
 {
     internal abstract class CommunalServiceByMeter : CommunalService
     {
-        private protected decimal _scopeOfServices;
+        private protected decimal _serviceVolume;
 
-        public CommunalServiceByMeter(decimal scopeOfService)
+        public CommunalServiceByMeter(decimal serviceVolume)
         {
-            _scopeOfServices = scopeOfService;
+            _serviceVolume = serviceVolume;
         }
-        public CommunalServiceByMeter(decimal readingBefore, decimal readingNow)
+        public CommunalServiceByMeter(decimal previousValue, decimal currentValue)
         {
-            _scopeOfServices = readingNow - readingBefore;
+            _serviceVolume = currentValue - previousValue;
         }
-        public decimal ScopeOfServices
+
+        public decimal ServiceVolume
         {
             get 
             { 
-                return _scopeOfServices; 
+                return _serviceVolume; 
             }
             set 
             { 
                 if (value > 0)
-                    _scopeOfServices = value; 
+                    _serviceVolume = value; 
             }
         }
 
         internal override decimal GetSalary()
         {
-            return Rate.Cost * _scopeOfServices;
+            return Rate.Cost * _serviceVolume;
         }
     }
 }

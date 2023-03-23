@@ -6,13 +6,10 @@
         {
             Type = Enums.ServiceTypes.ThermalEnergy;
         }
-        public ThermalEnergyByMeter(decimal readingBefore, decimal readingNow) : base(readingBefore, readingNow) 
-        {
-            Type = Enums.ServiceTypes.ThermalEnergy;
-        }
+
         internal override decimal GetSalary()
         {
-            return this._scopeOfServices * this.Rate.Normative * this.Rate.Cost;
+            return this._serviceVolume * this.Rate.Normative * this.Rate.Cost;
         }
     }
 }

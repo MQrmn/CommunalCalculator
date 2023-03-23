@@ -29,11 +29,11 @@
             SetColdWaterServiceRate(service);
         }
 
-        internal void SetColdWaterByMeter(decimal currentMeterValue) 
+        internal void SetColdWaterByMeter(decimal currentValue) 
         {
             // Get previous values from db
-            var previousMeterValue = 0m;
-            var service = new ColdWaterByMeter(previousMeterValue, currentMeterValue);
+            var previousValue = 0m;
+            var service = new ColdWaterByMeter(previousValue, currentValue);
             SetColdWaterServiceRate(service);
         }
 
@@ -51,12 +51,12 @@
             SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
         }
 
-        internal void SetHeatCarrierThermalEnergyByByMeter(decimal currentMeterValue) 
+        internal void SetHeatCarrierThermalEnergyByByMeter(decimal currentValue) 
         {
             // Get previous values from db
-            var previousMeterValue = 0m;
-            var hcService = new HeatCarrierByMeter(previousMeterValue, currentMeterValue);
-            var teService = new ThermalEnergyByMeter(currentMeterValue - previousMeterValue);
+            var previousValue = 0m;
+            var hcService = new HeatCarrierByMeter(previousValue, currentValue);
+            var teService = new ThermalEnergyByMeter(currentValue - previousValue);
             SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
         }
 
@@ -73,10 +73,11 @@
             SetElectroEnergyServiceRate(service);
         }
 
-        internal void SetElectroEnergyByMeter(decimal reading) 
+        internal void SetElectroEnergyByMeter(decimal currentValue) 
         {
             // Get previous values from db
-            var service = new ElectroEnergyByMeter(reading);
+            var previousValue = 0m;
+            var service = new ElectroEnergyByMeter(previousValue, currentValue);
             SetElectroEnergyServiceRate(service);
         }
 
