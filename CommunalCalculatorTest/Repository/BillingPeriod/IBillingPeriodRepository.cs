@@ -2,6 +2,7 @@
 {
     internal interface IBillingPeriodRepository
     {
-        public 
+        public BillingPeriod GetLast();
+        public void Put(BillingPeriod billingPeriod);
     }
 }

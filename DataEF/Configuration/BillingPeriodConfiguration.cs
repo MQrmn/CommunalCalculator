@@ -8,6 +8,7 @@ namespace DataEF.Configuration
         public void Configure(EntityTypeBuilder<BillingPeriod> builder)
         {
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
+            builder.Property(p => p.Date).HasColumnType("date");
         }
     }
 }

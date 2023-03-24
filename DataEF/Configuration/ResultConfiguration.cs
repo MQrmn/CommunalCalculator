@@ -8,6 +8,8 @@ namespace DataEF.Configuration
         public void Configure(EntityTypeBuilder<Result> builder)
         {
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
+            builder.Property(p => p.VolumeOfServices).IsRequired().HasColumnType("decimal");
+            builder.Property(p => p.Cost).IsRequired().HasColumnType("decimal");
             builder.HasOne<ServiceType>(p => p.ServiceTypeId)
                 .WithMany(p => p.Results)
                 .HasForeignKey(p => p.ServiceType);
