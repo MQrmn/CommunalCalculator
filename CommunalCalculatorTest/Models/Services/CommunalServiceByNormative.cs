@@ -23,7 +23,7 @@
         internal override decimal Calculate()
         {
             this.VolumeOfServices = Rate.Normative * _residentsCount;
-            this.Cost = Rate.Cost * this.VolumeOfServices;
+            this.Cost = Math.Round(Rate.Cost * this.VolumeOfServices, 2);
             return this.Cost;
         }
     }

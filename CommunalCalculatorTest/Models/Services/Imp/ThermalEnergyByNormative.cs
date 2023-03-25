@@ -10,7 +10,9 @@
 
         internal override decimal Calculate()
         {
-            return this.ResidentsCount *  this.HeatCarrierRate.Normative * this.Rate.Normative * this.Rate.Cost;
+            this.VolumeOfServices = this.ResidentsCount * this.HeatCarrierRate.Normative;
+            this.Cost = Math.Round(this.Rate.Normative * this.Rate.Cost, 2);
+            return this.Cost;
         }
     }
 }

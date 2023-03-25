@@ -18,6 +18,7 @@ namespace Core
 
         public AllResults GetResults()
         {
+            _house.CalculateAll();
             SetColdWater();
             SetThermalEnergy();
             SetHeatCarrier();

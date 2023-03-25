@@ -14,7 +14,7 @@
         internal override decimal Calculate()
         {
             this.VolumeOfServices = CurrentValue - PreviousValue;
-            this.Cost =  Rate.Cost * (this.VolumeOfServices);
+            this.Cost = Math.Round(Rate.Cost * (this.VolumeOfServices), 2);
             return this.Cost;
         }
     }

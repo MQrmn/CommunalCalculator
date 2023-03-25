@@ -28,7 +28,7 @@ namespace CommunalCalculator
             _billingPeriodRepository = new BillingPeriodRepository(_dbContext, _mapper);
             _meterValuesRepository = new MeterValuesRepository(_dbContext, _mapper);
             _houseBuilder = new HouseBuilder(_ratesRepository, _resultsRepository, _billingPeriodRepository, _meterValuesRepository);
-            _resultBuilder = new ResultsBuilder(_house, _mapper);
+            
             _ratesRepositoryStub = new RatesRepositoryStub();
             var dbFiller = new OnInitDbFiller(_dbContext);
             dbFiller.FillDb();
@@ -44,6 +44,7 @@ namespace CommunalCalculator
         public AllResults GetResult()
         {
             _house = _houseBuilder.GetObject();
+            _resultBuilder = new ResultsBuilder(_house, _mapper);
             return _resultBuilder.GetResults();
         }
 

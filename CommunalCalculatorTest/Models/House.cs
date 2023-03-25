@@ -19,5 +19,13 @@
                     _residentsCount = value;
             }
         }
+
+        public void CalculateAll()
+        {
+            ColdWater.Calculate();
+            ThermalEnergy.Calculate();
+            HeatCarrier.Calculate();
+            ElectroEnergy.Calculate();
+        }
     }
 }

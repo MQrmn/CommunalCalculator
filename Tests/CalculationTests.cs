@@ -40,7 +40,9 @@ namespace Tests
             calculator.SetColdWater(4.85m);
             calculator.SetElectroEnergy(164m);
             calculator.SetHotWater(4.01m);
-            var current = calculator.OldGetResut();
+            var current = calculator.GetResult();
+
+
 
             var expected = new OldResultCommon()
             {
@@ -50,11 +52,13 @@ namespace Tests
                 ThermalEnergy = 214.21m * count,
                 Sum = 1233.14m * count
             };
-            Assert.AreEqual(expected.ColdWater, current.ColdWater);
-            Assert.AreEqual(expected.ElectroEnergy, current.ElectroEnergy);
-            Assert.AreEqual(expected.HeatCarrier, current.HeatCarrier);
-            Assert.AreEqual(expected.ThermalEnergy, current.ThermalEnergy);
-            Assert.AreEqual(expected.Sum, current.Sum);
+
+
+            Assert.AreEqual(expected.ColdWater, current.ColdWater.Cost);
+            Assert.AreEqual(expected.ElectroEnergy, current.ElectroEnergyCommon.Cost);
+            Assert.AreEqual(expected.HeatCarrier, current.HeatCarrier.Cost);
+            Assert.AreEqual(expected.ThermalEnergy, current.ThermalEnergy.Cost);
+            Assert.AreEqual(expected.Sum, current.CommonCost);
         }
 
         [TestMethod]
