@@ -32,7 +32,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void CalculationByOneValues()
+        public void CalculationByValues()
         {
             var count = 1;
             var calculator = new Calculator();

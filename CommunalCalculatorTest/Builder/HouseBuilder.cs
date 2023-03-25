@@ -43,19 +43,12 @@
 
         internal void SetColdWaterByMeter(decimal currentValue) 
         {
-            var lastMeterValue = GetLastMeterValue(Enums.ServiceTypes.ColdWater);
-            var previousValue = lastMeterValue is not null ? lastMeterValue.Volume : decimal.Zero;
+            var previousValue = GetPreviousMeterValueByType(Enums.ServiceTypes.ColdWater);
             var service = new ColdWaterByMeter(previousValue, currentValue);
             SetColdWaterServiceRate(service);
         }
 
-        private MeterValue GetLastMeterValue(Enums.ServiceTypes type)
-        {
-            if (_lastBillingPeriod is not null)
-                return _meterValuesRepository.GetLastByTypeAndPeriodId(type, _lastBillingPeriod.PeriodId);
-            else
-                return null;
-        }
+
 
         private void SetColdWaterServiceRate(CommunalService s)
         {
@@ -71,12 +64,11 @@
             SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
         }
 
-        internal void SetHeatCarrierThermalEnergyByByMeter(decimal currentValue) 
+        internal void SetHeatCarrierThermalEnergyByByMeter(decimal heatCarrierCurrentValue) 
         {
-            // Get previous values from db
-            var previousValue = 0m;
-            var hcService = new HeatCarrierByMeter(previousValue, currentValue);
-            var teService = new ThermalEnergyByMeter(currentValue - previousValue);
+            var heatCarrierpreviousValue = GetPreviousMeterValueByType(Enums.ServiceTypes.HeatCarrier);
+            var hcService = new HeatCarrierByMeter(heatCarrierpreviousValue, heatCarrierCurrentValue);
+            var teService = new ThermalEnergyByMeter(heatCarrierCurrentValue - heatCarrierpreviousValue);
             SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
         }
 
@@ -95,8 +87,7 @@
 
         internal void SetElectroEnergyByMeter(decimal currentValue) 
         {
-            // Get previous values from db
-            var previousValue = 0m;
+            var previousValue = GetPreviousMeterValueByType(Enums.ServiceTypes.ElectroEnergyCommon);
             var service = new ElectroEnergyByMeter(previousValue, currentValue);
             SetElectroEnergyServiceRate(service);
         }
@@ -109,14 +100,26 @@
 
         public void SetElectroEnergyByDayNightMeter(decimal currentValueDay, decimal currentValueNight)
         {
-            // Get previous values from db
-            var previousValueDay = 0m;
-            var previousValueNight = 0m;
+            var previousValueDay = GetPreviousMeterValueByType(Enums.ServiceTypes.ElectroEnergyDay);
+            var previousValueNight  = GetPreviousMeterValueByType(Enums.ServiceTypes.ElectroEnergyNight);
             var eeDay = new ElectroEnergyByMeter(previousValueDay, currentValueDay);
             var eeNight = new ElectroEnergyByMeter(previousValueNight, currentValueNight);
             eeDay.Rate = _ratesRepository.GetElectroEnergyDay();
             eeNight.Rate = _ratesRepository.GetElectroEnergyNight();
             _house.ElectroEnergy = new ElectroEnergyByDayNightMeter(eeDay, eeNight);
+        }
+
+        private decimal GetPreviousMeterValueByType(Enums.ServiceTypes type)
+        {
+            if (_lastBillingPeriod is not null)
+            {
+                var lastMeterValue = _meterValuesRepository.GetLastByTypeAndPeriodId(type, _lastBillingPeriod.PeriodId);
+                return lastMeterValue.Volume;
+            }
+            else
+            {
+                return decimal.Zero;
+            }
         }
     }
 }
