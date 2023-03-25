@@ -4,16 +4,9 @@ using AutoMapper;
 
 namespace Core
 {
-    public class RatesRepository : IRatesRepository
+    public class RatesRepository : Repository, IRatesRepository
     {
-        private AppDbContext _dbContext;
-        private IMapper _mapper;
-        
-        public RatesRepository(AppDbContext dbContext, IMapper mapper)
-        {
-            _dbContext = dbContext;
-            _mapper = mapper;
-        }
+        public RatesRepository(AppDbContext dbContext, IMapper mapper) : base(dbContext, mapper) { }
         public CommunalRate GetColdWater()
         {
             return GetRateByServiceType(Enums.ServiceTypes.ColdWater);

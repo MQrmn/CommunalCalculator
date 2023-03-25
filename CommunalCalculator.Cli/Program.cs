@@ -4,4 +4,4 @@ using Core;
 var calculator = new Calculator();
 
 calculator.SetResidentsCount(1);
-calculator.SetColdWater();
+calculator.SetColdWater(100m);

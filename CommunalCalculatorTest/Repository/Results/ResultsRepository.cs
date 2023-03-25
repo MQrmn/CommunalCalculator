@@ -3,16 +3,9 @@ using DataEF;
 
 namespace Core
 {
-    internal class ResultsRepository : IResultsRepository
+    internal class ResultsRepository : Repository, IResultsRepository
     {
-        private AppDbContext _dbContext;
-        private IMapper _mapper;
-
-        public ResultsRepository(AppDbContext dbContext, IMapper mapper)
-        {
-            _dbContext = dbContext;
-            _mapper = mapper;
-        }
+        public ResultsRepository(AppDbContext dbContext, IMapper mapper) : base(dbContext, mapper) { }
 
         public void Addresult(ServiceResult result)
         {

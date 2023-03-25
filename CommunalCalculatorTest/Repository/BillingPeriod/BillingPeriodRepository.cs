@@ -1,18 +1,11 @@
 ﻿using DataEF;
 using AutoMapper;
 
-namespace Core.Repository
+namespace Core
 {
-    internal class BillingPeriodRepository : IBillingPeriodRepository
+    internal class BillingPeriodRepository : Repository, IBillingPeriodRepository
     {
-        AppDbContext _dbContext;
-        private IMapper _mapper;
-
-        public BillingPeriodRepository(AppDbContext dbContext, IMapper mapper)
-        {
-            _dbContext = dbContext;
-            _mapper = mapper;
-        }
+        public BillingPeriodRepository(AppDbContext dbContext, IMapper mapper) : base(dbContext, mapper) { }
 
         public void Put(Core.BillingPeriod billingPeriod)
         {
@@ -23,8 +16,15 @@ namespace Core.Repository
 
         public Core.BillingPeriod GetLast()
         {
-            var bp = _dbContext.BillingPeriods.OrderBy(p => p.Id).Last();
-            return _mapper.Map<Core.BillingPeriod>(bp);
+            //try
+            //{
+                var bp = _dbContext.BillingPeriods.OrderBy(p => p.Id).LastOrDefault();
+                return _mapper.Map<Core.BillingPeriod>(bp);
+            //}
+            //catch (InvalidOperationException)
+            //{
+            //    return null;
+            //}
         }
     }
 }

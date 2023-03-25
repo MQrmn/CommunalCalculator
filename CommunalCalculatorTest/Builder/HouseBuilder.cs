@@ -1,19 +1,33 @@
 ﻿namespace Core
 {
-    public class HouseBuilder
+    internal class HouseBuilder
     {
         private House _house;
         private IRatesRepository _ratesRepository;
+        private Core.BillingPeriod _lastBillingPeriod;
+        private IBillingPeriodRepository _billingPeriodRepository;
+        private IMeterValuesRepository _meterValuesRepository;
 
-        public HouseBuilder(IRatesRepository ratesRepository, IResultsRepository resultsRepository)
+        public HouseBuilder(IRatesRepository ratesRepository, 
+                            IResultsRepository resultsRepository, 
+                            IBillingPeriodRepository billingPeriodRepository,
+                            IMeterValuesRepository meterValuesRepository)
         {
             _house = new House();
             _ratesRepository = ratesRepository;
+            _billingPeriodRepository = billingPeriodRepository;
+            _meterValuesRepository = meterValuesRepository;
+            SetLastBillingPeriod();
         }
 
         internal House GetObject()
         {
             return _house;
+        }
+
+        private void SetLastBillingPeriod()
+        {
+            _lastBillingPeriod = _billingPeriodRepository.GetLast();
         }
 
         internal void SetResidentsCount(int residentsCount)
@@ -29,10 +43,18 @@
 
         internal void SetColdWaterByMeter(decimal currentValue) 
         {
-            // Get previous values from db
-            var previousValue = 0m;
+            var lastMeterValue = GetLastMeterValue(Enums.ServiceTypes.ColdWater);
+            var previousValue = lastMeterValue is not null ? lastMeterValue.Volume : decimal.Zero;
             var service = new ColdWaterByMeter(previousValue, currentValue);
             SetColdWaterServiceRate(service);
+        }
+
+        private MeterValue GetLastMeterValue(Enums.ServiceTypes type)
+        {
+            if (_lastBillingPeriod is not null)
+                return _meterValuesRepository.GetLastByTypeAndPeriodId(type, _lastBillingPeriod.PeriodId);
+            else
+                return null;
         }
 
         private void SetColdWaterServiceRate(CommunalService s)

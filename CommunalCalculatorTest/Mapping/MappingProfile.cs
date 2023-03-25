@@ -10,6 +10,7 @@ namespace Core.Mapping
             CreateMap<Rate, CommunalRate>().ReverseMap();
             CreateMap<Result, ServiceResult>().ReverseMap();
             CreateMap<DataEF.BillingPeriod, Core.BillingPeriod>().ReverseMap();
+            CreateMap<DataEF.MeterValue, Core.MeterValue>().ReverseMap();
         }
     }
 }
