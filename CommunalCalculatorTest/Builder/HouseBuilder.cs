@@ -34,9 +34,9 @@
         private void SetCurrentBillingPeriod()
         {
             if (_lastBillingPeriod is not null)
-                _house.Period = new BillingPeriod(_lastBillingPeriod.PeriodId + 1);
+                _house.BillingPeriod = new BillingPeriod(_lastBillingPeriod.PeriodId + 1);
             else
-                _house.Period = new BillingPeriod();
+                _house.BillingPeriod = new BillingPeriod();
         }
 
         internal void SetResidentsCount(int residentsCount)
