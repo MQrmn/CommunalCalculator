@@ -14,7 +14,7 @@ namespace CommunalCalculator
         private IResultsRepository _resultsRepository;
         private IBillingPeriodRepository _billingPeriodRepository;
         private IMeterValuesRepository _meterValuesRepository;
-        private OldResultBuilder _oldResultBuilder;
+        //private OldResultBuilder _oldResultBuilder;
         private ResultsBuilder _resultBuilder;
         public AppDbContext _dbContext;
         public static IMapper _mapper;
@@ -29,7 +29,7 @@ namespace CommunalCalculator
             _meterValuesRepository = new MeterValuesRepository(_dbContext, _mapper);
             _houseBuilder = new HouseBuilder(_ratesRepository, _resultsRepository, _billingPeriodRepository, _meterValuesRepository);
             
-            _ratesRepositoryStub = new RatesRepositoryStub();
+            //_ratesRepositoryStub = new RatesRepositoryStub();
             var dbFiller = new OnInitDbFiller(_dbContext);
             dbFiller.FillDb();
         }
@@ -48,13 +48,13 @@ namespace CommunalCalculator
             return _resultBuilder.GetResults();
         }
 
-        public OldResultCommon OldGetResut()
-        {
-            _house = _houseBuilder.GetObject();
-            _oldResultBuilder = new OldResultBuilder(_house);
-            OldResultCommon resultObj = _oldResultBuilder.GetResult();
-            return resultObj;
-        }
+        //public OldResultCommon OldGetResut()
+        //{
+        //    _house = _houseBuilder.GetObject();
+        //    _oldResultBuilder = new OldResultBuilder(_house);
+        //    OldResultCommon resultObj = _oldResultBuilder.GetResult();
+        //    return resultObj;
+        //}
 
         public void SetResidentsCount(int count)
         {
