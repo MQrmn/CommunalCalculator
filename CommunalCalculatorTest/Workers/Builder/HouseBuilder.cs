@@ -8,21 +8,17 @@
         private IBillingPeriodRepository _billingPeriodRepository;
         private IMeterValuesRepository _meterValuesRepository;
 
-        public HouseBuilder(IRatesRepository ratesRepository, 
+        public HouseBuilder(House house,
+                            IRatesRepository ratesRepository, 
                             IResultsRepository resultsRepository, 
                             IBillingPeriodRepository billingPeriodRepository,
                             IMeterValuesRepository meterValuesRepository)
         {
-            _house = new House();
+            _house = house;
             _ratesRepository = ratesRepository;
             _billingPeriodRepository = billingPeriodRepository;
             _meterValuesRepository = meterValuesRepository;
             SetBillingPeriods();
-        }
-
-        internal House GetObject()
-        {
-            return _house;
         }
 
         private void SetBillingPeriods()

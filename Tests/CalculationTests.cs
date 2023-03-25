@@ -24,11 +24,11 @@ namespace Tests
                 ThermalEnergy = 214.21m * count,
                 Sum = 1233.14m * count
             };
-            Assert.AreEqual(expected.ColdWater, current.ColdWater.Cost);
-            Assert.AreEqual(expected.ElectroEnergy, current.ElectroEnergyCommon.Cost);
-            Assert.AreEqual(expected.HeatCarrier, current.HeatCarrier.Cost);
-            Assert.AreEqual(expected.ThermalEnergy, current.ThermalEnergy.Cost);
-            Assert.AreEqual(expected.Sum, current.CommonCost);
+
+            Assert.AreEqual(expected.ColdWater, current[0].Cost);
+            Assert.AreEqual(expected.ElectroEnergy, current[1].Cost);
+            Assert.AreEqual(expected.HeatCarrier, current[2].Cost);
+            Assert.AreEqual(expected.ThermalEnergy, current[3].Cost);
         }
 
         [TestMethod]
@@ -53,12 +53,10 @@ namespace Tests
                 Sum = 1233.14m * count
             };
 
-
-            Assert.AreEqual(expected.ColdWater, current.ColdWater.Cost);
-            Assert.AreEqual(expected.ElectroEnergy, current.ElectroEnergyCommon.Cost);
-            Assert.AreEqual(expected.HeatCarrier, current.HeatCarrier.Cost);
-            Assert.AreEqual(expected.ThermalEnergy, current.ThermalEnergy.Cost);
-            Assert.AreEqual(expected.Sum, current.CommonCost);
+            Assert.AreEqual(expected.ColdWater, current[0].Cost);
+            Assert.AreEqual(expected.ElectroEnergy, current[1].Cost);
+            Assert.AreEqual(expected.HeatCarrier, current[2].Cost);
+            Assert.AreEqual(expected.ThermalEnergy, current[3].Cost);
         }
 
         //    [TestMethod]

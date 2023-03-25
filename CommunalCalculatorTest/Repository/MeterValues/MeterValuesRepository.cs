@@ -7,7 +7,7 @@ namespace Core
     {
         public MeterValuesRepository(AppDbContext dbContext, IMapper mapper) : base(dbContext, mapper) { }
 
-        public void Put()
+        public void Put(MeterValue value)
         {
             throw new NotImplementedException();
         }

@@ -7,32 +7,20 @@ namespace Core
     {
         public ResultsRepository(AppDbContext dbContext, IMapper mapper) : base(dbContext, mapper) { }
 
-        public void Addresult(ServiceResult result)
+        public void Add(ServiceResult result)
         {
             var r = _mapper.Map<Result>(result);
             _dbContext.Results.Add(r);
+            _dbContext.SaveChanges();
         }
-
-        public bool CheckIsresultsByServiceType(Enums.ServiceTypes type)
+        public void AddRange(List<ServiceResult> results)
         {
-            var dbResult = _dbContext.Results.Where(p => p.ServiceType == (int)type).Count();
-            if (dbResult > 0)
-                return true;
+           var r = new List<Result>();
+            foreach (var result in results)
+                r.Add(_mapper.Map<Result>(result));
 
-            return false;
-        }
-
-        public List<ServiceResult> GetResultsByServiceType(Enums.ServiceTypes type)
-        {
-            var dbResult = _dbContext.Results.Where(p => p.ServiceType == (int)type).ToList();
-            var results = new List<ServiceResult>(dbResult.Count);
-            
-            foreach(var r in dbResult) 
-            {
-                results.Add(_mapper.Map<ServiceResult>(r));
-            }
-
-            return results;
+            _dbContext.AddRange(r);
+            _dbContext.SaveChanges();
         }
     }
 }

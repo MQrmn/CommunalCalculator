@@ -2,7 +2,7 @@
 {
     internal interface IMeterValuesRepository
     {
-        public void Put();
+        public void Put(MeterValue value);
         public Core.MeterValue GetLastByTypeAndPeriodId(Enums.ServiceTypes type, int id);
         
     }

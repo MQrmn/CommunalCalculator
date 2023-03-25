@@ -14,19 +14,27 @@ namespace CommunalCalculator
         private IResultsRepository _resultsRepository;
         private IBillingPeriodRepository _billingPeriodRepository;
         private IMeterValuesRepository _meterValuesRepository;
+        private ICalculationResultsRepository _calculationResultsRepository;
         private ResultsBuilder _resultBuilder;
         public AppDbContext _dbContext;
         public static IMapper _mapper;
+        DbWriter _dbWriter;
 
         public Calculator()
         {
             CreateMapper();
+            _house = new House();
             _dbContext = new AppDbContext();
+            _calculationResultsRepository = new CalculationResultsRepository();
+
             _ratesRepository = new RatesRepository(_dbContext, _mapper);
             _resultsRepository = new ResultsRepository(_dbContext, _mapper);
             _billingPeriodRepository = new BillingPeriodRepository(_dbContext, _mapper);
             _meterValuesRepository = new MeterValuesRepository(_dbContext, _mapper);
-            _houseBuilder = new HouseBuilder(_ratesRepository, _resultsRepository, _billingPeriodRepository, _meterValuesRepository);
+            _houseBuilder = new HouseBuilder(_house, _ratesRepository, _resultsRepository, _billingPeriodRepository, _meterValuesRepository);
+            _resultBuilder = new ResultsBuilder(_house, _mapper, _calculationResultsRepository);
+            _dbWriter = new DbWriter(_resultsRepository, _billingPeriodRepository, _meterValuesRepository, _calculationResultsRepository);
+            
             var dbFiller = new OnInitDbFiller(_dbContext);
             dbFiller.FillDb();
         }
@@ -38,11 +46,10 @@ namespace CommunalCalculator
             _mapper = mapperConfiguration.CreateMapper();
         }
         
-        public AllResults GetResult()
+        public List<ServiceResult> GetResult()
         {
-            _house = _houseBuilder.GetObject();
-            _resultBuilder = new ResultsBuilder(_house, _mapper);
-            return _resultBuilder.GetResults();
+            _resultBuilder.GetResults();
+            return _calculationResultsRepository.GetResults();
         }
 
         public void SetResidentsCount(int count)
