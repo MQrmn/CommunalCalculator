@@ -2,6 +2,7 @@
 {
     public class House
     {
+        internal BillingPeriod Period { get; set; }
         internal CommunalService ColdWater { get; set; }
         internal CommunalService ThermalEnergy { get; set; }
         internal CommunalService HeatCarrier { get; set; }

@@ -20,9 +20,11 @@
             }
         }
 
-        internal override decimal GetSalary()
+        internal override decimal Calculate()
         {
-            return Rate.Normative * Rate.Cost * _residentsCount;
+            this.VolumeOfServices = Rate.Normative * _residentsCount;
+            this.Cost = Rate.Cost * this.VolumeOfServices;
+            return this.Cost;
         }
     }
 }

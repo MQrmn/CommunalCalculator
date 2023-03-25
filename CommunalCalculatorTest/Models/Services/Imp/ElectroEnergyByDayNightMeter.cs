@@ -2,17 +2,17 @@
 {
     internal class ElectroEnergyByDayNightMeter : CommunalService
     {
-        internal CommunalService _day { get; set; }
-        internal CommunalService _night { get; set; }
+        internal CommunalService Day { get; set; }
+        internal CommunalService Night { get; set; }
         public ElectroEnergyByDayNightMeter(CommunalService day, CommunalService night)
         {
-            _day = day;
-            _night = night;
-            Type = Enums.ServiceTypes.ElectroEnergyCommon;
+            Day = day;
+            Night = night;
+            ServiceType = (int)Enums.ServiceTypes.ElectroEnergyCommon;
         }
-        internal override decimal GetSalary()
+        internal override decimal Calculate()
         {
-            return _day.GetSalary() + _night.GetSalary();
+            return Day.Calculate() + Night.Calculate();
         }
     }
 }

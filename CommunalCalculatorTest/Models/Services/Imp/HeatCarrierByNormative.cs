@@ -4,7 +4,7 @@
     {
         public HeatCarrierByNormative(int residentsCount) : base(residentsCount) 
         {
-            Type = Enums.ServiceTypes.HeatCarrier;
+            ServiceType = (int)Enums.ServiceTypes.HeatCarrier;
         }
 
     }

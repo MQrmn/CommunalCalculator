@@ -4,7 +4,7 @@
     {
         public ElectroEnergyByMeter(decimal previousValue, decimal currentValue) : base(previousValue, currentValue) 
         { 
-            Type = Enums.ServiceTypes.ElectroEnergyCommon; 
+            ServiceType = (int)Enums.ServiceTypes.ElectroEnergyCommon; 
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Core
 {
-    public class ResultCommon
+    public class OldResultCommon
     {
         public decimal ColdWater { get; set; }
         public decimal ThermalEnergy { get; set; }

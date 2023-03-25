@@ -4,7 +4,7 @@
     {
         public ColdWaterByNormative(int residentsCount) : base(residentsCount) 
         {
-            Type = Enums.ServiceTypes.ColdWater;
+            ServiceType = (int)Enums.ServiceTypes.ColdWater;
         }
     }
 }

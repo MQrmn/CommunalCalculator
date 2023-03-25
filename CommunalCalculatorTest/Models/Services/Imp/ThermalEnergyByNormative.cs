@@ -5,10 +5,10 @@
         public CommunalRate HeatCarrierRate { get; set; }
         public ThermalEnergyByNormative(int residentsCount) : base(residentsCount)
         {
-            Type = Enums.ServiceTypes.ThermalEnergy;
+            ServiceType = (int)Enums.ServiceTypes.ThermalEnergy;
         }
 
-        internal override decimal GetSalary()
+        internal override decimal Calculate()
         {
             return this.ResidentsCount *  this.HeatCarrierRate.Normative * this.Rate.Normative * this.Rate.Cost;
         }

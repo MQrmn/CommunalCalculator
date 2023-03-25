@@ -4,7 +4,7 @@
     {
         public HeatCarrierByMeter(decimal previousValue, decimal currentValue) : base(previousValue, currentValue) 
         {
-            Type = Enums.ServiceTypes.HeatCarrier;
+            ServiceType = (int)Enums.ServiceTypes.HeatCarrier;
         }
     
     }

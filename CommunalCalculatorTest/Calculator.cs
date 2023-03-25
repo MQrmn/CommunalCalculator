@@ -7,14 +7,15 @@ namespace CommunalCalculator
 {
     public class Calculator
     {
-        private HouseBuilder _builder;
+        private HouseBuilder _houseBuilder;
         public House _house;
         public IRatesRepository _ratesRepositoryStub;
         public IRatesRepository _ratesRepository;
         private IResultsRepository _resultsRepository;
         private IBillingPeriodRepository _billingPeriodRepository;
         private IMeterValuesRepository _meterValuesRepository;
-        private ResultBuilder _resultBuilder;
+        private OldResultBuilder _oldResultBuilder;
+        private ResultsBuilder _resultBuilder;
         public AppDbContext _dbContext;
         public static IMapper _mapper;
 
@@ -26,7 +27,8 @@ namespace CommunalCalculator
             _resultsRepository = new ResultsRepository(_dbContext, _mapper);
             _billingPeriodRepository = new BillingPeriodRepository(_dbContext, _mapper);
             _meterValuesRepository = new MeterValuesRepository(_dbContext, _mapper);
-            _builder = new HouseBuilder(_ratesRepository, _resultsRepository, _billingPeriodRepository, _meterValuesRepository);
+            _houseBuilder = new HouseBuilder(_ratesRepository, _resultsRepository, _billingPeriodRepository, _meterValuesRepository);
+            _resultBuilder = new ResultsBuilder(_house, _mapper);
             _ratesRepositoryStub = new RatesRepositoryStub();
             var dbFiller = new OnInitDbFiller(_dbContext);
             dbFiller.FillDb();
@@ -39,52 +41,58 @@ namespace CommunalCalculator
             _mapper = mapperConfiguration.CreateMapper();
         }
         
-        public ResultCommon GetResut()
+        public AllResults GetResult()
         {
-            _house = _builder.GetObject();
-            _resultBuilder = new ResultBuilder(_house);
-            ResultCommon resultObj = _resultBuilder.GetResult();
+            _house = _houseBuilder.GetObject();
+            return _resultBuilder.GetResults();
+        }
+
+        public OldResultCommon OldGetResut()
+        {
+            _house = _houseBuilder.GetObject();
+            _oldResultBuilder = new OldResultBuilder(_house);
+            OldResultCommon resultObj = _oldResultBuilder.GetResult();
             return resultObj;
         }
 
         public void SetResidentsCount(int count)
         {
-            _builder.SetResidentsCount(count);
+            _houseBuilder.SetResidentsCount(count);
         }
 
         public void SetColdWater() 
         {
-            _builder.SetColdWaterByNormative();
+            _houseBuilder.SetColdWaterByNormative();
         }
 
         public void SetColdWater(decimal currentMeterValue) 
         {
-            _builder.SetColdWaterByMeter(currentMeterValue);
+            _houseBuilder.SetColdWaterByMeter(currentMeterValue);
         }
 
         public void SetHotWater() 
         {
-            _builder.SetHeatCarrierThermalEnergyByNormative();
+            _houseBuilder.SetHeatCarrierThermalEnergyByNormative();
         }
 
         public void SetHotWater(decimal currentMeterValue) 
         {
-            _builder.SetHeatCarrierThermalEnergyByByMeter(currentMeterValue);
+            _houseBuilder.SetHeatCarrierThermalEnergyByByMeter(currentMeterValue);
         }
 
         public void SetElectroEnergy() 
         {
-            _builder.SetElectroEnergyByNormative();
+            _houseBuilder.SetElectroEnergyByNormative();
         }
 
         public void SetElectroEnergy(decimal currentMeterValue) 
         {
-            _builder.SetElectroEnergyByMeter(currentMeterValue);
+            _houseBuilder.SetElectroEnergyByMeter(currentMeterValue);
         }
 
         public void SetElectroEnergy(decimal currentMeterValueDay, decimal currentMeterValueNight) 
         {
-            _builder.SetElectroEnergyByDayNightMeter(currentMeterValueDay, currentMeterValueNight);
+            _houseBuilder.SetElectroEnergyByDayNightMeter(currentMeterValueDay, currentMeterValueNight);
         }
     }
 }

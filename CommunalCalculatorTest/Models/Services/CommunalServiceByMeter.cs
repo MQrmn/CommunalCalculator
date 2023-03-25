@@ -11,9 +11,11 @@
             CurrentValue = currentValue;
         }
 
-        internal override decimal GetSalary()
+        internal override decimal Calculate()
         {
-            return Rate.Cost * (CurrentValue - PreviousValue);
+            this.VolumeOfServices = CurrentValue - PreviousValue;
+            this.Cost =  Rate.Cost * (this.VolumeOfServices);
+            return this.Cost;
         }
     }
 }

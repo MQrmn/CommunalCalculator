@@ -1,9 +1,13 @@
 ﻿namespace Core
 {
-    internal abstract class CommunalService
+    public abstract class CommunalService
     {
+        public decimal VolumeOfServices { get; set; }
+        public decimal Cost { get; set; }
+        public int ServiceType { get; set; }
+
+
         internal CommunalRate Rate { get; set; }
-        internal Enums.ServiceTypes Type { get; set; }
-        internal abstract decimal GetSalary();
+        internal abstract decimal Calculate();
     }
 }

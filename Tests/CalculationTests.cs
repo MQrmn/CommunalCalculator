@@ -14,9 +14,9 @@ namespace Tests
             calculator.SetElectroEnergy();
             calculator.SetColdWater();
             calculator.SetHotWater();
-            var current = calculator.GetResut();
+            var current = calculator.OldGetResut();
 
-            var expected = new ResultCommon()
+            var expected = new OldResultCommon()
             {
                 ColdWater = 173.53m * count,
                 ElectroEnergy = 701.92m * count,
@@ -40,9 +40,9 @@ namespace Tests
             calculator.SetColdWater(4.85m);
             calculator.SetElectroEnergy(164m);
             calculator.SetHotWater(4.01m);
-            var current = calculator.GetResut();
+            var current = calculator.OldGetResut();
 
-            var expected = new ResultCommon()
+            var expected = new OldResultCommon()
             {
                 ColdWater = 173.53m * count,
                 ElectroEnergy = 701.92m * count,
@@ -66,9 +66,9 @@ namespace Tests
             calculator.SetColdWater(4.85m);
             calculator.SetElectroEnergy(100m, 100m);
             calculator.SetHotWater(4.01m);
-            var current = calculator.GetResut();
+            var current = calculator.OldGetResut();
 
-            var expected = new ResultCommon()
+            var expected = new OldResultCommon()
             {
                 ColdWater = 173.53m * count,
                 ElectroEnergy = 490m + 231m * count,

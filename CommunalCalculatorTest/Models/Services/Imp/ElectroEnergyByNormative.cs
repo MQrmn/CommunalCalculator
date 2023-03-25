@@ -4,7 +4,7 @@
     {
         public ElectroEnergyByNormative(int residentsCount) : base(residentsCount) 
         {
-            Type = Enums.ServiceTypes.ElectroEnergyCommon;
+            ServiceType = (int)Enums.ServiceTypes.ElectroEnergyCommon;
         }
 
     }

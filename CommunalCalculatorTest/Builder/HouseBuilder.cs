@@ -17,7 +17,7 @@
             _ratesRepository = ratesRepository;
             _billingPeriodRepository = billingPeriodRepository;
             _meterValuesRepository = meterValuesRepository;
-            SetLastBillingPeriod();
+            SetBillingPeriods();
         }
 
         internal House GetObject()
@@ -25,9 +25,18 @@
             return _house;
         }
 
-        private void SetLastBillingPeriod()
+        private void SetBillingPeriods()
         {
             _lastBillingPeriod = _billingPeriodRepository.GetLast();
+            SetCurrentBillingPeriod();
+        }
+
+        private void SetCurrentBillingPeriod()
+        {
+            if (_lastBillingPeriod is not null)
+                _house.Period = new BillingPeriod(_lastBillingPeriod.PeriodId + 1);
+            else
+                _house.Period = new BillingPeriod();
         }
 
         internal void SetResidentsCount(int residentsCount)
@@ -47,8 +56,6 @@
             var service = new ColdWaterByMeter(previousValue, currentValue);
             SetColdWaterServiceRate(service);
         }
-
-
 
         private void SetColdWaterServiceRate(CommunalService s)
         {
@@ -114,7 +121,7 @@
             if (_lastBillingPeriod is not null)
             {
                 var lastMeterValue = _meterValuesRepository.GetLastByTypeAndPeriodId(type, _lastBillingPeriod.PeriodId);
-                return lastMeterValue.Volume;
+                return lastMeterValue.Value;
             }
             else
             {

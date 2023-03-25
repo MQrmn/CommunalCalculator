@@ -1,21 +1,20 @@
 ﻿namespace Core
 {
-    internal class ResultBuilder
+    internal class OldResultBuilder
     {
-        private ResultCommon _result;
+        private OldResultCommon _result;
         private House _house;
-        internal ResultBuilder(House house) 
+        internal OldResultBuilder(House house) 
         {
             _house = house;
-            _result = new ResultCommon();
+            _result = new OldResultCommon();
         }
-
-        public ResultCommon GetResult()
+        public OldResultCommon GetResult()
         {
-            var cw = _house.ColdWater.GetSalary();
-            var hc = _house.HeatCarrier.GetSalary();
-            var te = _house.ThermalEnergy.GetSalary();
-            var ee = _house.ElectroEnergy.GetSalary();
+            var cw = _house.ColdWater.Calculate();
+            var hc = _house.HeatCarrier.Calculate();
+            var te = _house.ThermalEnergy.Calculate();
+            var ee = _house.ElectroEnergy.Calculate();
 
             _result.ColdWater = Math.Round(cw, 2);
             _result.HeatCarrier = Math.Round(hc, 2);
