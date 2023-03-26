@@ -16,15 +16,9 @@ namespace Core
 
         public Core.BillingPeriod GetLast()
         {
-            //try
-            //{
-                var bp = _dbContext.BillingPeriods.OrderBy(p => p.Id).LastOrDefault();
-                return _mapper.Map<Core.BillingPeriod>(bp);
-            //}
-            //catch (InvalidOperationException)
-            //{
-            //    return null;
-            //}
+            var bp = _dbContext.BillingPeriods.OrderBy(p => p.Id).LastOrDefault();
+            var newBp = _mapper.Map<BillingPeriod>(bp);
+            return newBp;
         }
     }
 }

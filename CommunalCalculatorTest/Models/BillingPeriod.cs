@@ -2,12 +2,16 @@
 {
     public class BillingPeriod
     {
-        public int PeriodId { get; set; }
+        public int Id { get; set; }
         public DateOnly Date { get; set; }
 
-        public BillingPeriod( int periodId = 1 ) 
+        //public BillingPeriod()
+        //{
+
+        //}
+        public BillingPeriod(int id = 1)
         {
-            PeriodId = periodId;
+            Id = id;
             var now = DateTime.Now;
             Date = new DateOnly(now.Year, now.Month, now.Day);
         }

@@ -30,7 +30,7 @@
         private void SetCurrentBillingPeriod()
         {
             if (_lastBillingPeriod is not null)
-                _house.BillingPeriod = new BillingPeriod(_lastBillingPeriod.PeriodId + 1);
+                _house.BillingPeriod = new BillingPeriod(_lastBillingPeriod.Id + 1);
             else
                 _house.BillingPeriod = new BillingPeriod();
         }
@@ -116,7 +116,7 @@
         {
             if (_lastBillingPeriod is not null)
             {
-                var lastMeterValue = _meterValuesRepository.GetLastByTypeAndPeriodId(type, _lastBillingPeriod.PeriodId);
+                var lastMeterValue = _meterValuesRepository.GetLastByTypeAndPeriodId(type, _lastBillingPeriod.Id);
                 return lastMeterValue.Value;
             }
             else

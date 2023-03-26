@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+
+@model CalculateRequestData
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    @using (Html.BeginForm("CurrentResult", "Calculate", HttpMethod.Post))
+    {
+        @Html.TextBoxFor(p => p.ResidentsCount, new { @class = "form-control" })
+        @Html.TextBoxFor(p => p.ColdWaterMeterValue, new { @class = "form-control" })
+        @Html.TextBoxFor(p => p.ThermalEnergyMeterValue, new { @class = "form-control" })
+        @Html.TextBoxFor(p => p.HeatCarrierMeterValue, new { @class = "form-control" })
+        @Html.TextBoxFor(p => p.ElectroEnergyCommonMeterValue, new { @class = "form-control" })
+        @Html.TextBoxFor(p => p.ElectroEnergyDayMeterValue, new { @class = "form-control" })
+        @Html.TextBoxFor(p => p.ElectroEnergyNightMeterValue, new { @class = "form-control" })
+        <p><input type="submit" value="Отправить" /></p>
+    }
+    
+</body>
+</html>
