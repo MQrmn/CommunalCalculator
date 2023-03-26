@@ -13,9 +13,12 @@
         {
             Results.Add(new CurrentResult()
             {
-                ServiceTypeName = GetServiceTypeName(result.ServiceType),
+                ServiceTypeName = GetServiceTypeNameByType(result.ServiceType),
                 VolumeOfServices = result.VolumeOfServices,
-                Cost = result.Cost
+                Cost = result.Cost,
+                Normative = result.Normative,
+                Rate = result.Rate,
+                Units = GetUnitsByType(result.ServiceType)
             });
         }
 
@@ -24,7 +27,20 @@
             return Results;
         }
 
-        private string GetServiceTypeName(int id)
+        private string GetUnitsByType(int id)
+        {
+            return id switch
+            {
+                (int)Core.Enums.ServiceTypes.ColdWater => "М куб.",
+                (int)Core.Enums.ServiceTypes.ElectroEnergyCommon => "кВт/ч",
+                (int)Core.Enums.ServiceTypes.ElectroEnergyDay => "кВт/ч",
+                (int)Core.Enums.ServiceTypes.ElectroEnergyNight => "кВт/ч",
+                (int)Core.Enums.ServiceTypes.HeatCarrier => "М куб.",
+                (int)Core.Enums.ServiceTypes.ThermalEnergy => "Гкал",
+            };
+        }
+
+        private string GetServiceTypeNameByType(int id)
         {
             return id switch
             {
@@ -35,6 +51,11 @@
                 (int)Core.Enums.ServiceTypes.HeatCarrier => "ГВС Теплоноситель ",
                 (int)Core.Enums.ServiceTypes.ThermalEnergy => "ГВС Тепловая Энергия",
             };
+        }
+
+        private void SetCommonCost()
+        {
+
         }
     }
 }

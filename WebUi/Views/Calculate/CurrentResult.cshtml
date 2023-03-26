@@ -25,12 +25,24 @@
                             Объем услуг
                         </th>
                         <th>
+                            Норматив
+                        </th>
+                        <th>
+                            Тариф
+                        </th>
+                        <th>
                             Стоимость
                         </th>
                     </tr>
                     @foreach (var m in Model)
                     {
-                        <tr><td>@m.ServiceTypeName</td><td>@m.VolumeOfServices</td><td>@m.Cost</td></tr>
+                        <tr>
+                            <td>@m.ServiceTypeName</td>
+                            <td>@m.VolumeOfServices @m.Units</td>
+                            <td>@m.Normative @m.Units</td>
+                            <td>@m.Rate</td>
+                            <td>@m.Cost</td>
+                        </tr>
                     }
                 </tbody>
             </table>

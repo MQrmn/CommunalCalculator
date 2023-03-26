@@ -109,6 +109,7 @@
             var eeNight = new ElectroEnergyByMeter(previousValueNight, currentValueNight);
             eeDay.Rate = _ratesRepository.GetElectroEnergyDay();
             eeNight.Rate = _ratesRepository.GetElectroEnergyNight();
+
             _house.ElectroEnergy = new ElectroEnergyByDayNightMeter(eeDay, eeNight);
         }
 

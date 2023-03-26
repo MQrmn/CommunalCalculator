@@ -12,12 +12,12 @@ namespace WebUi.Controllers
         }
         public IActionResult GetValues()
         {
-            var allServicesEmpty = new CalculateRequestData();
+            var allServicesEmpty = new RequestData();
             return View(allServicesEmpty);
         }
 
         [HttpPost]
-        public IActionResult CurrentResult(CalculateRequestData services)
+        public IActionResult CurrentResult(RequestData services)
         {
             _calcService.PutRequest(services);
             _calcService.RunCalculation();

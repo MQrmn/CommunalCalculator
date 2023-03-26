@@ -46,7 +46,7 @@ namespace Core
 
         private void SetElectroEnergy()
         {
-            if(_house.ElectroEnergy.GetType().IsSubclassOf(typeof(ElectroEnergyByDayNightMeter))) 
+            if(typeof(ElectroEnergyByDayNightMeter).IsInstanceOfType(_house.ElectroEnergy))
             {
                 SetElectroEnergyDay();
                 SetElectroEnergyNight();
