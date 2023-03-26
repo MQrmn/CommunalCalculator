@@ -85,7 +85,7 @@ namespace Core
         private void AddResult(CommunalService service, ServiceResult result)
         {
             result.BillingPeriod = _house.BillingPeriod.PeriodId;
-            SetMeterValue(_house.ColdWater, ref result);
+            SetMeterValue(service, ref result);
             _calculationResultsRepository.AddResult(result);
         }
 

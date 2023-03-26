@@ -35,8 +35,8 @@ namespace CommunalCalculator
             _resultBuilder = new ResultsBuilder(_house, _mapper, _calculationResultsRepository);
             _dbWriter = new DbWriter(_resultsRepository, _billingPeriodRepository, _meterValuesRepository, _calculationResultsRepository);
             
-            var dbFiller = new OnInitDbFiller(_dbContext);
-            dbFiller.FillDb();
+            //var dbFiller = new OnInitDbFiller(_dbContext);
+            //dbFiller.FillDb();
         }
 
         private void CreateMapper()
