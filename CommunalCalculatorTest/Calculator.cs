@@ -49,6 +49,7 @@ namespace CommunalCalculator
         public List<ServiceResult> GetResult()
         {
             _resultBuilder.GetResults();
+            _dbWriter.WriteAll();
             return _calculationResultsRepository.GetResults();
         }
 

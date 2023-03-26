@@ -21,6 +21,8 @@
         public void WriteAll()
         {
             WriteBillingPeriod();
+            WriteMeterValues();
+            WriteServiceResults();
         }
 
         private void WriteBillingPeriod()
@@ -30,11 +32,12 @@
 
         private void WriteMeterValues()
         {
+            _meterValuesRepository.AddRange(_calculationResultsRepository.GetResults());
         }
 
-        private void WriteServiceResults(ServiceResult result)
+        private void WriteServiceResults()
         {
-            
+            _resultRepository.AddRange(_calculationResultsRepository.GetResults());
         }
 
     }

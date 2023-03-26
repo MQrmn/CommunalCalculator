@@ -19,7 +19,7 @@ namespace Core
             foreach (var result in results)
                 r.Add(_mapper.Map<Result>(result));
 
-            _dbContext.AddRange(r);
+            _dbContext.Results.AddRange(r);
             _dbContext.SaveChanges();
         }
     }

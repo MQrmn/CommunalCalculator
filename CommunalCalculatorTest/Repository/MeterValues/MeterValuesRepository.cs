@@ -21,5 +21,16 @@ namespace Core
 
             return _mapper.Map<Core.MeterValue>(mv);
         }
+
+        public void AddRange(List<ServiceResult> values)
+        {
+            var v = new List<DataEF.MeterValue>();
+
+            foreach (var value in values)
+                v.Add(_mapper.Map<DataEF.MeterValue>(value));
+
+            _dbContext.MeterValues.AddRange(v);
+            _dbContext.SaveChanges();
+        }
     }
 }

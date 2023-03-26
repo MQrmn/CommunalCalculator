@@ -18,6 +18,7 @@ namespace Core
         public void GetResults()
         {
             _house.CalculateAll();
+            SetBillingPeriod();
             SetColdWater();
             SetElectroEnergy();
             SetHeatCarrier();
@@ -74,6 +75,11 @@ namespace Core
             var ee = (ElectroEnergyByDayNightMeter)_house.ElectroEnergy;
             var result = _mapper.Map<ServiceResult>(ee.Night);
             AddResult(ee.Night, result);
+        }
+
+        private void SetBillingPeriod()
+        {
+            _calculationResultsRepository.SetBillingPeriod(_house.BillingPeriod);
         }
 
         private void AddResult(CommunalService service, ServiceResult result)
