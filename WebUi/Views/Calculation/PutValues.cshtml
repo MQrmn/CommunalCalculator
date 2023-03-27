@@ -37,18 +37,19 @@
                                 <span asp-validation-for="HotWaterMeterValue" class="text-danger" />
                         </th>
                     </tr>
-                    <tr><th>ЭЭ</th><th>@Html.TextBoxFor(p => p.ElectroEnergyCommonMeterValue, new { @class = "form-control" })
-                                <span asp-validation-for="ElectroEnergyCommonMeterValue" class="text-danger" />
-                        </th>
-                    </tr>
-                    <tr><th>ЭЭ День</th><th>@Html.TextBoxFor(p => p.ElectroEnergyDayMeterValue, new { @class = "form-control" })
-                                <span asp-validation-for="ElectroEnergyDayMeterValue" class="text-danger" />
-                        </th>
-                    </tr>
-                    <tr><th>ЭЭ Ночь</th><th>@Html.TextBoxFor(p => p.ElectroEnergyNightMeterValue, new { @class = "form-control" })
-                                <span asp-validation-for="ElectroEnergyNightMeterValue" class="text-danger" />
-                        </th>
-                    </tr>
+                        <tr><th>ЭЭ</th><th>@Html.TextBoxFor(p => p.ElectroEnergyCommonMeterValue, new { @class = "form-control" })
+                                    <span asp-validation-for="ElectroEnergyCommonMeterValue" class="text-danger" />
+                            </th>
+                        </tr>
+                        <tr><th>ЭЭ День</th><th>@Html.TextBoxFor(p => p.ElectroEnergyDayMeterValue, new { @class = "form-control" })
+                                    <span asp-validation-for="ElectroEnergyDayMeterValue" class="text-danger" />
+                            </th>
+                        </tr>
+                        
+                        <tr><th>ЭЭ Ночь</th><th>@Html.TextBoxFor(p => p.ElectroEnergyNightMeterValue, new { @class = "form-control" })
+                                    <span asp-validation-for="ElectroEnergyNightMeterValue" class="text-danger" />
+                            </th>
+                        </tr>
             </tbody>
         </table>
             <p><input type="submit" value="Рассчитать" class="btn-primary"></p>

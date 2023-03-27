@@ -5,7 +5,7 @@ namespace WebUi
     public class RequestData
     {
         private const string messageReq = "Поле обязательно для заполнения";
-        private const string messageRegExp = "Поле обязательно для заполнения";
+        private const string messageRegExp = "Введите корректное значение";
 
         [Required(ErrorMessage = messageReq)]
         [RegularExpression("([.0-9]+)", ErrorMessage = messageRegExp)]

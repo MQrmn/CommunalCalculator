@@ -1,6 +1,6 @@
 ﻿namespace Core
 {
-    public interface IRatesRepository
+    internal interface IRatesRepository
     {
         public CommunalRate GetColdWater();
         public CommunalRate GetElectroEnergyCommon();

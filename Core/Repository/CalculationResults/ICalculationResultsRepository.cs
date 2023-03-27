@@ -1,6 +1,6 @@
 ﻿namespace Core
 {
-    public interface ICalculationResultsRepository
+    internal interface ICalculationResultsRepository
     {
         public void AddResult(ServiceResult result);
         public List<ServiceResult> GetResults();

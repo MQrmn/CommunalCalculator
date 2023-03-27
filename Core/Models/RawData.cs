@@ -1,6 +1,6 @@
 ﻿namespace Core
 {
-    public class House
+    public class RawData
     {
         internal BillingPeriod BillingPeriod { get; set; }
         internal CommunalService ColdWater { get; set; }

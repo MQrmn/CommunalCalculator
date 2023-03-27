@@ -1,20 +1,20 @@
 ﻿namespace Core
 {
-    internal class HouseBuilder
+    internal class RawDataBuilder
     {
-        private House _house;
+        private RawData _raw;
         private IRatesRepository _ratesRepository;
         private Core.BillingPeriod _lastBillingPeriod;
         private IBillingPeriodRepository _billingPeriodRepository;
         private IMeterValuesRepository _meterValuesRepository;
 
-        public HouseBuilder(House house,
+        public RawDataBuilder(RawData raw,
                             IRatesRepository ratesRepository, 
                             IResultsRepository resultsRepository, 
                             IBillingPeriodRepository billingPeriodRepository,
                             IMeterValuesRepository meterValuesRepository)
         {
-            _house = house;
+            _raw = raw;
             _ratesRepository = ratesRepository;
             _billingPeriodRepository = billingPeriodRepository;
             _meterValuesRepository = meterValuesRepository;
@@ -30,19 +30,19 @@
         private void SetCurrentBillingPeriod()
         {
             if (_lastBillingPeriod is not null)
-                _house.BillingPeriod = new BillingPeriod(_lastBillingPeriod.Id + 1);
+                _raw.BillingPeriod = new BillingPeriod(_lastBillingPeriod.Id + 1);
             else
-                _house.BillingPeriod = new BillingPeriod();
+                _raw.BillingPeriod = new BillingPeriod();
         }
 
         internal void SetResidentsCount(int residentsCount)
         {
-            _house.ResidentsCount = residentsCount;
+            _raw.ResidentsCount = residentsCount;
         }
 
         internal void SetColdWaterByNormative() 
         {
-            var service = new ColdWaterByNormative(_house.ResidentsCount);
+            var service = new ColdWaterByNormative(_raw.ResidentsCount);
             SetColdWaterServiceRate(service);
         }
 
@@ -56,13 +56,13 @@
         private void SetColdWaterServiceRate(CommunalService s)
         {
             s.Rate = _ratesRepository.GetColdWater();
-            _house.ColdWater = s;
+            _raw.ColdWater = s;
         }
 
         internal void SetHeatCarrierThermalEnergyByNormative() 
         {
-            var hcService = new HeatCarrierByNormative(_house.ResidentsCount);
-            var teService = new ThermalEnergyByNormative(_house.ResidentsCount);
+            var hcService = new HeatCarrierByNormative(_raw.ResidentsCount);
+            var teService = new ThermalEnergyByNormative(_raw.ResidentsCount);
             teService.HeatCarrierRate = _ratesRepository.GetHeatCarrierRate();
             SetHeatCarrierThermalEnergyServiceRate(hcService, teService);
         }
@@ -79,12 +79,12 @@
         {
             hcService.Rate = _ratesRepository.GetHeatCarrierRate();
             teService.Rate = _ratesRepository.GetThermalEnergy();
-            _house.HeatCarrier = hcService;
-            _house.ThermalEnergy = teService;
+            _raw.HeatCarrier = hcService;
+            _raw.ThermalEnergy = teService;
         }
         internal void SetElectroEnergyByNormative() 
         {
-            var service = new ElectroEnergyByNormative(_house.ResidentsCount);
+            var service = new ElectroEnergyByNormative(_raw.ResidentsCount);
             SetElectroEnergyServiceRate(service);
         }
 
@@ -98,7 +98,7 @@
         private void SetElectroEnergyServiceRate(CommunalService s)
         {
             s.Rate = _ratesRepository.GetElectroEnergyCommon();
-            _house.ElectroEnergy = s;
+            _raw.ElectroEnergy = s;
         }
 
         public void SetElectroEnergyByDayNightMeter(decimal currentValueDay, decimal currentValueNight)
@@ -110,7 +110,7 @@
             eeDay.Rate = _ratesRepository.GetElectroEnergyDay();
             eeNight.Rate = _ratesRepository.GetElectroEnergyNight();
 
-            _house.ElectroEnergy = new ElectroEnergyByDayNightMeter(eeDay, eeNight);
+            _raw.ElectroEnergy = new ElectroEnergyByDayNightMeter(eeDay, eeNight);
         }
 
         private decimal GetPreviousMeterValueByType(Enums.ServiceTypes type)
@@ -119,6 +119,8 @@
             {
                 var lastMeterValue = _meterValuesRepository.GetByTypeAndPeriodId(type, _lastBillingPeriod.Id);
                 lastMeterValue = lastMeterValue is null ? _meterValuesRepository.GetLastByType(type) : lastMeterValue;
+                if (lastMeterValue is null) return decimal.Zero;
+
                 return lastMeterValue.Value;
             }
             else

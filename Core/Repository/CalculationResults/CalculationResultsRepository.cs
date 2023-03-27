@@ -1,6 +1,6 @@
 ﻿namespace Core
 {
-    public class CalculationResultsRepository : ICalculationResultsRepository
+    internal class CalculationResultsRepository : ICalculationResultsRepository
     {
         public List<ServiceResult> Results { get; set; } 
         public decimal CommonCost { get; set; }

@@ -7,40 +7,44 @@ namespace CommunalCalculator
 {
     public class Calculator
     {
-        private HouseBuilder _houseBuilder;
-        public House _house;
-        public IRatesRepository _ratesRepositoryStub;
-        public IRatesRepository _ratesRepository;
+        private RawData _raw;
+        private RawDataBuilder _houseBuilder;
+        private IRatesRepository _ratesRepository;
         private IResultsRepository _resultsRepository;
         private IBillingPeriodRepository _billingPeriodRepository;
         private IMeterValuesRepository _meterValuesRepository;
         private ICalculationResultsRepository _calculationResultsRepository;
         private ResultsBuilder _resultBuilder;
-        public AppDbContext _dbContext;
-        public static IMapper _mapper;
+        private AppDbContext _dbContext;
+        private static IMapper _mapper;
         DbWriter _dbWriter;
 
         public Calculator()
         {
             _dbContext = new AppDbContext();
-            CheckInitDb();
+            InitDb();
             CreateMapper();
                
-            _house = new House();
+            _raw = new RawData();
             _calculationResultsRepository = new CalculationResultsRepository();
             _ratesRepository = new RatesRepository(_dbContext, _mapper);
             _resultsRepository = new ResultsRepository(_dbContext, _mapper);
             _billingPeriodRepository = new BillingPeriodRepository(_dbContext, _mapper);
             _meterValuesRepository = new MeterValuesRepository(_dbContext, _mapper);
-            _houseBuilder = new HouseBuilder(_house, _ratesRepository, _resultsRepository, _billingPeriodRepository, _meterValuesRepository);
-            _resultBuilder = new ResultsBuilder(_house, _mapper, _calculationResultsRepository);
-            _dbWriter = new DbWriter(_resultsRepository, _billingPeriodRepository, _meterValuesRepository, _calculationResultsRepository);
+
+            _houseBuilder = new RawDataBuilder(_raw, _ratesRepository, _resultsRepository, 
+                                            _billingPeriodRepository, _meterValuesRepository);
+
+            _resultBuilder = new ResultsBuilder(_raw, _mapper, _calculationResultsRepository);
+
+            _dbWriter = new DbWriter(_resultsRepository, _billingPeriodRepository, 
+                                        _meterValuesRepository, _calculationResultsRepository);
         }
 
-        private void CheckInitDb()
+        private void InitDb()
         {
-            var dbFiller = new DbInitialiser(_dbContext);
-            dbFiller.InitDb();
+            var dbInit = new DbInitialiser(_dbContext);
+            dbInit.InitDb();
         }
 
         private void CreateMapper()
@@ -61,37 +65,44 @@ namespace CommunalCalculator
         {
             _houseBuilder.SetResidentsCount(count);
         }
-
+        
+        // Set ColdWater values by stored normatives
         public void SetColdWater() 
         {
             _houseBuilder.SetColdWaterByNormative();
         }
-
+        
+        //Set ColdWater values by meter values
         public void SetColdWater(decimal currentMeterValue) 
         {
             _houseBuilder.SetColdWaterByMeter(currentMeterValue);
         }
 
+        //Set HotWater values by stored normatives
         public void SetHotWater() 
         {
             _houseBuilder.SetHeatCarrierThermalEnergyByNormative();
         }
 
+        //Set HotWater values by meter value
         public void SetHotWater(decimal currentMeterValue) 
         {
             _houseBuilder.SetHeatCarrierThermalEnergyByByMeter(currentMeterValue);
         }
 
+        //Set ElectroEnergy values by stored normative
         public void SetElectroEnergy() 
         {
             _houseBuilder.SetElectroEnergyByNormative();
         }
 
+        //Set ElectroEnergy values by meter values
         public void SetElectroEnergy(decimal currentMeterValue) 
         {
             _houseBuilder.SetElectroEnergyByMeter(currentMeterValue);
         }
 
+        //Set Day & Night ElectroEnergy values by meter value
         public void SetElectroEnergy(decimal currentMeterValueDay, decimal currentMeterValueNight) 
         {
             _houseBuilder.SetElectroEnergyByDayNightMeter(currentMeterValueDay, currentMeterValueNight);

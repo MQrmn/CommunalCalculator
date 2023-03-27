@@ -4,7 +4,7 @@ using AutoMapper;
 
 namespace Core
 {
-    public class RatesRepository : Repository, IRatesRepository
+    internal class RatesRepository : Repository, IRatesRepository
     {
         public RatesRepository(AppDbContext dbContext, IMapper mapper) : base(dbContext, mapper) { }
         public CommunalRate GetColdWater()

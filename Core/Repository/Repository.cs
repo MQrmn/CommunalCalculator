@@ -3,7 +3,7 @@ using DataEF;
 
 namespace Core
 {
-    public abstract class Repository
+    internal abstract class Repository
     {
         private protected AppDbContext _dbContext;
         private protected IMapper _mapper;

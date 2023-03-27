@@ -4,7 +4,7 @@ namespace Core
 {
     internal class DbInitialiser
     {
-        AppDbContext _dbContext;
+        private AppDbContext _dbContext;
         public DbInitialiser(AppDbContext dbContext)
         {
             _dbContext = dbContext;
