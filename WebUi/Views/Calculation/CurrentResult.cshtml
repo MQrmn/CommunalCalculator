@@ -12,27 +12,18 @@
     <title>CurrentResult</title>
 </head>
 <body>
-
+    @using (Html.BeginForm("PutValues", "Calculate", HttpMethod.Get))
+    {
     <div class="row">
         <div class="col-md-6">
             <table class="table table-striped">
                 <tbody>
                     <tr>
-                        <th>
-                            Вид услуги
-                        </th>
-                        <th>
-                            Объем услуг
-                        </th>
-                        <th>
-                            Норматив
-                        </th>
-                        <th>
-                            Тариф
-                        </th>
-                        <th>
-                            Стоимость
-                        </th>
+                        <th>Вид услуги</th>
+                        <th>Объем услуг</th>
+                        <th>Норматив</th>
+                        <th>Тариф</th>
+                        <th>Стоимость</th>
                     </tr>
                     @foreach (var m in Model)
                     {
@@ -44,10 +35,12 @@
                             <td>@m.Cost</td>
                         </tr>
                     }
+                    
                 </tbody>
             </table>
+                <p><input type="submit" value="Продолжить" /></p>
         </div>
     </div>
-
+    }
 </body>
 </html>

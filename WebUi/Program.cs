@@ -19,7 +19,7 @@ namespace WebUi
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Calculation/Error");
             }
             app.UseStaticFiles();
 
@@ -29,7 +29,7 @@ namespace WebUi
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Calculate}/{action=GetValues}/{id?}");
+                pattern: "{controller=Calculation}/{action=PutValues}");
 
             app.Run();
         }

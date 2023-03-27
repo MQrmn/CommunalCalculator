@@ -12,7 +12,7 @@ namespace Core
             throw new NotImplementedException();
         }
 
-        public Core.MeterValue GetLastByTypeAndPeriodId(Enums.ServiceTypes type, int periodId)
+        public Core.MeterValue GetByTypeAndPeriodId(Enums.ServiceTypes type, int periodId)
         {
             var mv = _dbContext.MeterValues.Where(p => p.ServiceType == (int)type)
                                     .Where(p => p.BillingPeriod == periodId)
@@ -31,6 +31,15 @@ namespace Core
 
             _dbContext.MeterValues.AddRange(v);
             _dbContext.SaveChanges();
+        }
+
+        public MeterValue GetLastByType(Enums.ServiceTypes type)
+        {
+            var mv = _dbContext.MeterValues.Where(p => p.ServiceType == (int)type)
+                        .OrderBy(p => p.Id)
+                        .LastOrDefault();
+
+            return _mapper.Map<Core.MeterValue>(mv);
         }
     }
 }

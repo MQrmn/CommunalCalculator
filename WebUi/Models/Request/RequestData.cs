@@ -7,7 +7,7 @@
         public decimal ElectroEnergyCommonMeterValue { get; set; }
         public decimal ElectroEnergyDayMeterValue { get; set; }
         public decimal ElectroEnergyNightMeterValue { get; set; }
-        public int ResidentsCount { get; set; }
+        public int ResidentsCount { get; set; } = 1;
 
     }
 }

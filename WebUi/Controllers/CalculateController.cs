@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using WebUi;
+using WebUi.Models;
 
 namespace WebUi.Controllers
 {
-    public class CalculateController : Controller
+    public class CalculationController : Controller
     {
         private ICalculationService _calcService;
-        public CalculateController(ICalculationService calcService)
+        public CalculationController(ICalculationService calcService)
         {
             _calcService = calcService;
         }
-        public IActionResult GetValues()
+        public IActionResult PutValues()
         {
             var allServicesEmpty = new RequestData();
             return View(allServicesEmpty);
@@ -26,6 +29,16 @@ namespace WebUi.Controllers
             var res = _calcService.GetResults();
 
             return View(res);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                ExceptionMessage = HttpContext.Features.Get<IExceptionHandlerPathFeature>()?.Error.Message
+            });
         }
     }
 }

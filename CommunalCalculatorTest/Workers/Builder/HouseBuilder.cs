@@ -117,7 +117,8 @@
         {
             if (_lastBillingPeriod is not null)
             {
-                var lastMeterValue = _meterValuesRepository.GetLastByTypeAndPeriodId(type, _lastBillingPeriod.Id);
+                var lastMeterValue = _meterValuesRepository.GetByTypeAndPeriodId(type, _lastBillingPeriod.Id);
+                lastMeterValue = lastMeterValue is null ? _meterValuesRepository.GetLastByType(type) : lastMeterValue;
                 return lastMeterValue.Value;
             }
             else

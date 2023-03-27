@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+
+@model RequestData
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    @using (Html.BeginForm("CurrentResult", "Calculation", HttpMethod.Post))
+    {
+    <div class="col-md-6">
+            <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th>Парметр</th>
+                    <th>Значение</th>
+                </tr>
+                    <tr><th>Количество <br> проживающих</th><th>@Html.TextBoxFor(p => p.ResidentsCount, new { @class = "form-control" })</th></tr>
+                    <tr><th>ХВС</th><th>@Html.TextBoxFor(p => p.ColdWaterMeterValues, new { @class = "form-control" })</th></tr>
+                    <tr><th>ГВС</th><th>@Html.TextBoxFor(p => p.HotWaterMeterValue, new { @class = "form-control" })</th></tr>
+                    <tr><th>ЭЭ</th><th>@Html.TextBoxFor(p => p.ElectroEnergyCommonMeterValue, new { @class = "form-control" })</th></tr>
+                    <tr><th>ЭЭ День</th><th>@Html.TextBoxFor(p => p.ElectroEnergyDayMeterValue, new { @class = "form-control" })</th></tr>
+                    <tr><th>ЭЭ Ночь</th><th>@Html.TextBoxFor(p => p.ElectroEnergyNightMeterValue, new { @class = "form-control" })</th></tr>
+            </tbody>
+        </table>
+            <p><input type="submit" value="Рассчитать" class="button"></p>
+    </div>
+    }
+    
+</body>
+</html>
