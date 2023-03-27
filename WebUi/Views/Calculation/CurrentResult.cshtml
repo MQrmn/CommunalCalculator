@@ -14,8 +14,8 @@
 <body>
     @using (Html.BeginForm("PutValues", "Calculation", HttpMethod.Get))
     {
-    <div class="row">
-        <div class="col-md-6">
+        <div class="w-50 container-fluid justify-content-center align-items-center p-0">
+        <div>
             <table class="table table-striped">
                 <tbody>
                     <tr>
@@ -38,7 +38,7 @@
                     
                 </tbody>
             </table>
-                <p><input type="submit" value="Продолжить"></p>
+                    <p><input type="submit" value="Продолжить" class="btn-primary"></p>
         </div>
     </div>
     }
