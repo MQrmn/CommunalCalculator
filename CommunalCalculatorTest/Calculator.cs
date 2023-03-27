@@ -22,9 +22,11 @@ namespace CommunalCalculator
 
         public Calculator()
         {
-            CreateMapper();
-            _house = new House();
             _dbContext = new AppDbContext();
+            CheckInitDb();
+            CreateMapper();
+               
+            _house = new House();
             _calculationResultsRepository = new CalculationResultsRepository();
             _ratesRepository = new RatesRepository(_dbContext, _mapper);
             _resultsRepository = new ResultsRepository(_dbContext, _mapper);
@@ -33,9 +35,12 @@ namespace CommunalCalculator
             _houseBuilder = new HouseBuilder(_house, _ratesRepository, _resultsRepository, _billingPeriodRepository, _meterValuesRepository);
             _resultBuilder = new ResultsBuilder(_house, _mapper, _calculationResultsRepository);
             _dbWriter = new DbWriter(_resultsRepository, _billingPeriodRepository, _meterValuesRepository, _calculationResultsRepository);
-            
-            var dbFiller = new OnInitDbFiller(_dbContext);
-            dbFiller.FillDb();
+        }
+
+        private void CheckInitDb()
+        {
+            var dbFiller = new DbInitialiser(_dbContext);
+            dbFiller.InitDb();
         }
 
         private void CreateMapper()

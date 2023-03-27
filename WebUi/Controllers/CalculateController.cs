@@ -25,11 +25,6 @@ namespace WebUi.Controllers
 
             var res = _calcService.GetResults();
 
-            foreach(var r in res)
-            {
-                Console.WriteLine(r.Cost);
-            }
-
             return View(res);
         }
     }

@@ -11,11 +11,7 @@ namespace DataEF
         public DbSet<MeterValue> MeterValues { get; set; }
         public DbSet<BillingPeriod> BillingPeriods { get; set; }
 
-        public AppDbContext()
-        {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
-        }
+        public AppDbContext() { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
