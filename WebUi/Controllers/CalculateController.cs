@@ -24,7 +24,6 @@ namespace WebUi.Controllers
         public IActionResult CurrentResult(RequestData services)
         {
             _calcService.PutRequest(services);
-            _calcService.RunCalculation();
             _calcService.FillResultRepository();
 
             var res = _calcService.GetResults();

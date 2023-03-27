@@ -23,12 +23,13 @@ namespace WebUi
         public void RunCalculation()
         {
             _calculator.SetResidentsCount(_requestData.ResidentsCount);
-            SetColdWater();
-            SetElectroEnergy();
-            SetHotWater();
+            PutColdWater();
+            PutElectroEnergy();
+            PutHotWater();
+            FillResultRepository();
         }
 
-        private void SetColdWater()
+        private void PutColdWater()
         {
             if (_requestData.ColdWaterMeterValues > 0)
                 _calculator.SetHotWater(_requestData.ColdWaterMeterValues);
@@ -38,7 +39,7 @@ namespace WebUi
                 throw new Exception();
         }
 
-        private void SetElectroEnergy()
+        private void PutElectroEnergy()
         {
             if (_requestData.ElectroEnergyDayMeterValue > 0 && _requestData.ElectroEnergyNightMeterValue > 0)
                 _calculator.SetElectroEnergy(_requestData.ElectroEnergyDayMeterValue, _requestData.ElectroEnergyNightMeterValue);
@@ -50,7 +51,7 @@ namespace WebUi
                 throw new Exception();
         }
 
-        private void SetHotWater()
+        private void PutHotWater()
         {
             if (_requestData.HotWaterMeterValue > 0)
                 _calculator.SetColdWater(_requestData.HotWaterMeterValue);
@@ -60,13 +61,14 @@ namespace WebUi
                 throw new Exception();
         }
 
-        public void FillResultRepository()
+        private void FillResultRepository()
         {
-            List<ServiceResult> r = _calculator.GetResult();
-            foreach (ServiceResult result in r)
+            List<ServiceResult> results = _calculator.GetResult();
+            foreach (ServiceResult r in results)
             {
-                _resultsRepository.AddResult(result);
+                _resultsRepository.AddResult(MapResultToCurrentResult(r));
             }
+            _resultsRepository.SetCommonCost(CalculateCommonCost(results));
         }
 
         public List<CurrentResult> GetResults()
@@ -74,5 +76,54 @@ namespace WebUi
             return _resultsRepository.GetAll();
         }
 
+        public CurrentResult MapResultToCurrentResult(Core.ServiceResult result)
+        {
+            return new CurrentResult()
+            {
+                ServiceTypeName = GetServiceTypeNameByType(result.ServiceType),
+                VolumeOfServices = result.VolumeOfServices,
+                Cost = result.Cost,
+                Normative = result.Normative,
+                Rate = result.Rate,
+                Units = GetUnitsByType(result.ServiceType)
+            };
+        }
+
+        private string GetUnitsByType(int id)
+        {
+            return id switch
+            {
+                (int)Core.Enums.ServiceTypes.ColdWater => "М куб.",
+                (int)Core.Enums.ServiceTypes.ElectroEnergyCommon => "кВт/ч",
+                (int)Core.Enums.ServiceTypes.ElectroEnergyDay => "кВт/ч",
+                (int)Core.Enums.ServiceTypes.ElectroEnergyNight => "кВт/ч",
+                (int)Core.Enums.ServiceTypes.HeatCarrier => "М куб.",
+                (int)Core.Enums.ServiceTypes.ThermalEnergy => "Гкал",
+            };
+        }
+
+        private string GetServiceTypeNameByType(int id)
+        {
+            return id switch
+            {
+                (int)Core.Enums.ServiceTypes.ColdWater => "ХВС",
+                (int)Core.Enums.ServiceTypes.ElectroEnergyCommon => "ЭЭ",
+                (int)Core.Enums.ServiceTypes.ElectroEnergyDay => "ЭЭ День",
+                (int)Core.Enums.ServiceTypes.ElectroEnergyNight => "ЭЭ Ночь",
+                (int)Core.Enums.ServiceTypes.HeatCarrier => "ГВС Теплоноситель ",
+                (int)Core.Enums.ServiceTypes.ThermalEnergy => "ГВС Тепловая Энергия",
+            };
+        }
+
+        private decimal CalculateCommonCost(List<Core.ServiceResult> results)
+        {
+            decimal cost = decimal.Zero;
+            foreach(var r in results)
+            {
+                cost += r.Cost;
+            }
+            return cost;
+
+        }
     }
 }
