@@ -24,9 +24,9 @@ namespace WebUi.Controllers
         public IActionResult CurrentResult(RequestData services)
         {
             _calcService.PutRequest(services);
-            _calcService.FillResultRepository();
+            var res = _calcService.CalculateGetResults();
 
-            var res = _calcService.GetResults();
+            ViewBag.CommonCost = _calcService.GetCommonCost();
 
             return View(res);
         }

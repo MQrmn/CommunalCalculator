@@ -3,7 +3,8 @@
     public interface ICalculationService
     {
         public void PutRequest(RequestData request);
-        public void RunCalculation();
-        public List<CurrentResult> GetResults();
+        public void Calculate();
+        public List<CurrentResult> CalculateGetResults();
+        public decimal GetCommonCost();
     }
 }

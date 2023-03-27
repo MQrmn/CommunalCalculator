@@ -20,7 +20,14 @@ namespace WebUi
         {
             _requestData = requestData;
         }
-        public void RunCalculation()
+
+        public List<CurrentResult> CalculateGetResults()
+        {
+            Calculate();
+            return _resultsRepository.GetAll();
+        }
+
+        public void Calculate()
         {
             _calculator.SetResidentsCount(_requestData.ResidentsCount);
             PutColdWater();
@@ -68,12 +75,6 @@ namespace WebUi
             {
                 _resultsRepository.AddResult(MapResultToCurrentResult(r));
             }
-            _resultsRepository.SetCommonCost(CalculateCommonCost(results));
-        }
-
-        public List<CurrentResult> GetResults()
-        {
-            return _resultsRepository.GetAll();
         }
 
         public CurrentResult MapResultToCurrentResult(Core.ServiceResult result)
@@ -114,16 +115,16 @@ namespace WebUi
                 (int)Core.Enums.ServiceTypes.ThermalEnergy => "ГВС Тепловая Энергия",
             };
         }
-
-        private decimal CalculateCommonCost(List<Core.ServiceResult> results)
+        public decimal GetCommonCost()
         {
+            var results = _resultsRepository.GetAll();
+
             decimal cost = decimal.Zero;
             foreach(var r in results)
             {
                 cost += r.Cost;
             }
             return cost;
-
         }
     }
 }

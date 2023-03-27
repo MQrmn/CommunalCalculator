@@ -22,8 +22,8 @@
                         <th>Вид услуги</th>
                         <th>Объем услуг</th>
                         <th>Норматив</th>
-                        <th>Тариф</th>
-                        <th>Стоимость</th>
+                        <th>Тариф, р.</th>
+                        <th>Стоимость, р.</th>
                     </tr>
                     @foreach (var m in Model)
                     {
@@ -35,6 +35,13 @@
                             <td>@m.Cost</td>
                         </tr>
                     }
+                        <tr>
+                            <td>СУММА</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>@ViewBag.CommonCost</td>
+                        </tr>
                     
                 </tbody>
             </table>

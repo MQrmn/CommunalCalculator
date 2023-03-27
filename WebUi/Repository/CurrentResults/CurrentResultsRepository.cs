@@ -26,7 +26,7 @@
             CommonCost = cost;
         }
 
-        public decimal GetCommonCost(decimal cost)
+        public decimal GetCommonCost()
         {
             return CommonCost;
         }
