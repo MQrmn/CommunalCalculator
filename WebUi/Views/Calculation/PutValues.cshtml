@@ -4,6 +4,7 @@
 }
 
 @model RequestData
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
 
@@ -21,17 +22,41 @@
                     <th>Парметр</th>
                     <th>Значение</th>
                 </tr>
-                    <tr><th>Количество <br> проживающих</th><th>@Html.TextBoxFor(p => p.ResidentsCount, new { @class = "form-control" })</th></tr>
-                    <tr><th>ХВС</th><th>@Html.TextBoxFor(p => p.ColdWaterMeterValues, new { @class = "form-control" })</th></tr>
-                    <tr><th>ГВС</th><th>@Html.TextBoxFor(p => p.HotWaterMeterValue, new { @class = "form-control" })</th></tr>
-                    <tr><th>ЭЭ</th><th>@Html.TextBoxFor(p => p.ElectroEnergyCommonMeterValue, new { @class = "form-control" })</th></tr>
-                    <tr><th>ЭЭ День</th><th>@Html.TextBoxFor(p => p.ElectroEnergyDayMeterValue, new { @class = "form-control" })</th></tr>
-                    <tr><th>ЭЭ Ночь</th><th>@Html.TextBoxFor(p => p.ElectroEnergyNightMeterValue, new { @class = "form-control" })</th></tr>
+                    <tr>
+                        <th>Количество <br> проживающих</th>
+                        <th>
+                            @Html.TextBoxFor(p => p.ResidentsCount, new { @class = "form-control" })
+                            <span asp-validation-for="ResidentsCount" class="error" />
+                    </th></tr>
+                    <tr><th>ХВС</th><th>@Html.TextBoxFor(p => p.ColdWaterMeterValues, new { @class = "form-control" })
+                            <span asp-validation-for="ColdWaterMeterValues" class="error" />
+                    </th></tr>
+                    <tr><th>ГВС</th><th>@Html.TextBoxFor(p => p.HotWaterMeterValue, new { @class = "form-control" })
+                            <span asp-validation-for="HotWaterMeterValue" class="error" />
+                        </th>
+                    </tr>
+                    <tr><th>ЭЭ</th><th>@Html.TextBoxFor(p => p.ElectroEnergyCommonMeterValue, new { @class = "form-control" })
+                            <span asp-validation-for="ElectroEnergyCommonMeterValue" class="error" />
+                        </th>
+                    </tr>
+                    <tr><th>ЭЭ День</th><th>@Html.TextBoxFor(p => p.ElectroEnergyDayMeterValue, new { @class = "form-control" })
+                            <span asp-validation-for="ElectroEnergyDayMeterValue" class="error" />
+                        </th>
+                    </tr>
+                    <tr><th>ЭЭ Ночь</th><th>@Html.TextBoxFor(p => p.ElectroEnergyNightMeterValue, new { @class = "form-control" })
+                            <span class="error text-red" asp-validation-for="ElectroEnergyNightMeterValue" />
+                        </th>
+                    </tr>
             </tbody>
         </table>
             <p><input type="submit" value="Рассчитать" class="button"></p>
-    </div>
+        </div>
+
+
     }
-    
+
 </body>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>
 </html>
