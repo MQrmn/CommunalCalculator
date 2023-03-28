@@ -94,11 +94,11 @@ namespace WebUi
         {
             return id switch
             {
-                (int)Core.Enums.ServiceTypes.ColdWater => "М куб.",
+                (int)Core.Enums.ServiceTypes.ColdWater => "М³",
                 (int)Core.Enums.ServiceTypes.ElectroEnergyCommon => "кВт/ч",
                 (int)Core.Enums.ServiceTypes.ElectroEnergyDay => "кВт/ч",
                 (int)Core.Enums.ServiceTypes.ElectroEnergyNight => "кВт/ч",
-                (int)Core.Enums.ServiceTypes.HeatCarrier => "М куб.",
+                (int)Core.Enums.ServiceTypes.HeatCarrier => "М³",
                 (int)Core.Enums.ServiceTypes.ThermalEnergy => "Гкал",
             };
         }

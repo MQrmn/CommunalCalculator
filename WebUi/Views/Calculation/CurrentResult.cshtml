@@ -22,17 +22,23 @@
                         <th>Вид услуги</th>
                         <th>Объем услуг</th>
                         <th>Норматив</th>
-                        <th>Тариф, р.</th>
-                        <th>Стоимость, р.</th>
+                            <th class="text-nowrap">Тариф, &#8381;</th>
+                            <th class ="text-nowrap">Стоимость, &#8381;</th>
                     </tr>
                     @foreach (var m in Model)
                     {
                         <tr>
                             <td>@m.ServiceTypeName</td>
-                            <td>@m.VolumeOfServices @m.Units</td>
-                            <td>@m.Normative @m.Units</td>
-                            <td>@m.Rate</td>
-                            <td>@m.Cost</td>
+                            <td class="text-nowrap align-middle">@m.VolumeOfServices @m.Units</td>
+                            @if(m.ServiceTypeName == "ГВС Тепловая Энергия"){
+                              <td class="text-nowrap align-middle">@m.Normative @m.Units на М&#179;</td>
+                            }
+                            @if (m.ServiceTypeName != "ГВС Тепловая Энергия")
+                            {
+                               <td class="text-nowrap align-middle">@m.Normative @m.Units</td>
+                            }
+                            <td class="align-middle">@m.Rate</td>
+                            <td class="align-middle">@m.Cost</td>
                         </tr>
                     }
                         <tr>
