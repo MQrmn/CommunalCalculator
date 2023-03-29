@@ -29,7 +29,7 @@ namespace WebUi
 
         [Required(ErrorMessage = messageReq)]
         [RegularExpression("([.0-9]+)", ErrorMessage = messageRegExp)]
-        [Range(1, int.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
+        [Range(1, int.MaxValue, ErrorMessage = "Значение должно быть не меньше 1")]
         public int ResidentsCount { get; set; } = 1;
     }
 }
