@@ -37,7 +37,7 @@ namespace Core
             return GetRateByServiceType(Enums.ServiceTypes.ThermalEnergy);
         }
 
-        private CommunalRate GetRateByServiceType(Enums.ServiceTypes type)
+        public CommunalRate GetRateByServiceType(Enums.ServiceTypes type)
         {
             var r = _dbContext.Rates.Where(p => p.ServiceType == (int)type).OrderBy(p => p.Id).Last();
             return _mapper.Map<CommunalRate>(r);

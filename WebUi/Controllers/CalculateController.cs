@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Shared;
 using System.Diagnostics;
-using WebUi;
 using WebUi.Models;
 
 namespace WebUi.Controllers
@@ -23,6 +22,8 @@ namespace WebUi.Controllers
         [HttpPost]
         public IActionResult CurrentResult(RequestData services)
         {
+            if (services is null) return null;
+
             _calcService.PutRequest(services);
             var res = _calcService.CalculateGetResults();
 

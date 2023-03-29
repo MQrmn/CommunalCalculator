@@ -20,11 +20,10 @@
             }
         }
 
-        internal override decimal Calculate()
+        internal override void Calculate()
         {
             this.VolumeOfServices = Rate.Normative * _residentsCount;
             this.Cost = Math.Round(Rate.Cost * this.VolumeOfServices, 2);
-            return this.Cost;
         }
     }
 }

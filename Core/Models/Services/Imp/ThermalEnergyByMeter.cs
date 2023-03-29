@@ -9,11 +9,10 @@
             this.VolumeOfHeatCarrier = serviceVolume;
         }
 
-        internal override decimal Calculate()
+        internal override void Calculate()
         {
             this.VolumeOfServices = VolumeOfHeatCarrier * this.Rate.Normative;
             this.Cost = Math.Round( this.VolumeOfServices * this.Rate.Cost, 2);
-            return this.Cost;
         }
     }
 }

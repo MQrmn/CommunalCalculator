@@ -24,7 +24,8 @@ namespace WebUi
         public List<CurrentResult> CalculateGetResults()
         {
             Calculate();
-            return _resultsRepository.GetAll();
+            var results = _resultsRepository.GetAll();
+            return results;
         }
 
         public void Calculate()
@@ -39,16 +40,16 @@ namespace WebUi
         private void PutColdWater()
         {
             if (_requestData.ColdWaterMeterValues > 0)
-                _calculator.SetHotWater(_requestData.ColdWaterMeterValues);
+                _calculator.SetColdWater(_requestData.ColdWaterMeterValues);
             else if (_requestData.ColdWaterMeterValues == 0)
-                _calculator.SetHotWater();
+                _calculator.SetColdWater();
             else
                 throw new Exception();
         }
 
         private void PutElectroEnergy()
         {
-            if (_requestData.ElectroEnergyDayMeterValue > 0 && _requestData.ElectroEnergyNightMeterValue > 0)
+            if (_requestData.ElectroEnergyDayMeterValue > 0 || _requestData.ElectroEnergyNightMeterValue > 0)
                 _calculator.SetElectroEnergy(_requestData.ElectroEnergyDayMeterValue, _requestData.ElectroEnergyNightMeterValue);
             else if (_requestData.ElectroEnergyCommonMeterValue > 0)
                 _calculator.SetElectroEnergy(_requestData.ElectroEnergyCommonMeterValue);
@@ -61,9 +62,9 @@ namespace WebUi
         private void PutHotWater()
         {
             if (_requestData.HotWaterMeterValue > 0)
-                _calculator.SetColdWater(_requestData.HotWaterMeterValue);
+                _calculator.SetHotWater(_requestData.HotWaterMeterValue);
             else if (_requestData.HotWaterMeterValue == 0)
-                _calculator.SetColdWater();
+                _calculator.SetHotWater();
             else
                 throw new Exception();
         }
@@ -75,6 +76,7 @@ namespace WebUi
             {
                 _resultsRepository.AddResult(MapResultToCurrentResult(r));
             }
+            results.Reverse();
         }
 
         public CurrentResult MapResultToCurrentResult(Core.ServiceResult result)

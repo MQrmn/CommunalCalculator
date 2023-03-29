@@ -8,5 +8,6 @@
         public CommunalRate GetElectroEnergyDay();
         public CommunalRate GetHeatCarrierRate();
         public CommunalRate GetThermalEnergy();
+        public CommunalRate GetRateByServiceType(Enums.ServiceTypes type);
     }
 }

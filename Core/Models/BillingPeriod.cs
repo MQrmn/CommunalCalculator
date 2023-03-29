@@ -4,11 +4,6 @@
     {
         public int Id { get; set; }
         public DateOnly Date { get; set; }
-
-        //public BillingPeriod()
-        //{
-
-        //}
         public BillingPeriod(int id = 1)
         {
             Id = id;

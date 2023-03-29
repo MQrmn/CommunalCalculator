@@ -13,14 +13,13 @@ namespace Core
             CurrentValue = currentValue;
         }
 
-        internal override decimal Calculate()
+        internal override void Calculate()
         {
             if (PreviousValue > CurrentValue)
                 throw new CalculatorException("Текущие показатели счетчика не могут быть меньше, чем в предыдущем периоде");
 
             this.VolumeOfServices = CurrentValue - PreviousValue;
             this.Cost = Math.Round(Rate.Cost * (this.VolumeOfServices), 2);
-            return this.Cost;
         }
     }
 }

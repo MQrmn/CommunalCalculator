@@ -5,12 +5,12 @@
         private IBillingPeriodRepository _billingPeriodRepository;
         private IMeterValuesRepository _meterValuesRepository;
         private IResultsRepository _resultRepository;
-        private ICalculationResultsRepository _calculationResultsRepository;
+        private ICurrentResultRepository _calculationResultsRepository;
 
         public DbWriter(    IResultsRepository resultRepository,
                             IBillingPeriodRepository billingPeriodRepository,
                             IMeterValuesRepository meterValuesRepository,
-                            ICalculationResultsRepository calculationResultsRepository)
+                            ICurrentResultRepository calculationResultsRepository)
         {
             _billingPeriodRepository = billingPeriodRepository;
             _meterValuesRepository = meterValuesRepository;
@@ -32,7 +32,9 @@
 
         private void WriteMeterValues()
         {
-            _meterValuesRepository.AddRange(_calculationResultsRepository.GetResults());
+            var all = _calculationResultsRepository.GetResults();
+            var onlyWithMeterValues = all.Where(p => p.MeterValue != null).ToList();
+            _meterValuesRepository.AddRange(onlyWithMeterValues);
         }
 
         private void WriteServiceResults()

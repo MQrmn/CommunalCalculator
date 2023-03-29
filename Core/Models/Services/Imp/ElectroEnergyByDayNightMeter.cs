@@ -12,9 +12,8 @@
             Day.ServiceType = (int)Enums.ServiceTypes.ElectroEnergyDay;
             Night.ServiceType = (int)Enums.ServiceTypes.ElectroEnergyNight;
         }
-        internal override decimal Calculate()
+        internal override void Calculate()
         {
-            return Day.Calculate() + Night.Calculate();
         }
     }
 }

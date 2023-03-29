@@ -7,17 +7,17 @@ namespace CommunalCalculator
 {
     public class Calculator
     {
-        private RawData _raw;
-        private RawDataBuilder _houseBuilder;
+        private IRawDataRepository _rawDataRepository;
+        private RawDataService _rawDataService;
         private IRatesRepository _ratesRepository;
         private IResultsRepository _resultsRepository;
         private IBillingPeriodRepository _billingPeriodRepository;
         private IMeterValuesRepository _meterValuesRepository;
-        private ICalculationResultsRepository _calculationResultsRepository;
-        private ResultsBuilder _resultBuilder;
+        private ICurrentResultRepository _currentResultRepository;
+        private CurrentResultsService _currentResultService;
         private AppDbContext _dbContext;
         private static IMapper _mapper;
-        DbWriter _dbWriter;
+        private DbWriter _dbWriter;
 
         public Calculator()
         {
@@ -25,20 +25,20 @@ namespace CommunalCalculator
             InitDb();
             CreateMapper();
                
-            _raw = new RawData();
-            _calculationResultsRepository = new CalculationResultsRepository();
+            _rawDataRepository = new RawDataRepository();
+            _currentResultRepository = new CalculationResultsRepository();
             _ratesRepository = new RatesRepository(_dbContext, _mapper);
             _resultsRepository = new ResultsRepository(_dbContext, _mapper);
             _billingPeriodRepository = new BillingPeriodRepository(_dbContext, _mapper);
             _meterValuesRepository = new MeterValuesRepository(_dbContext, _mapper);
 
-            _houseBuilder = new RawDataBuilder(_raw, _ratesRepository, _resultsRepository, 
+            _rawDataService = new RawDataService(_rawDataRepository, _ratesRepository, _resultsRepository, 
                                             _billingPeriodRepository, _meterValuesRepository);
 
-            _resultBuilder = new ResultsBuilder(_raw, _mapper, _calculationResultsRepository);
+            _currentResultService = new CurrentResultsService(_rawDataRepository, _mapper, _currentResultRepository);
 
             _dbWriter = new DbWriter(_resultsRepository, _billingPeriodRepository, 
-                                        _meterValuesRepository, _calculationResultsRepository);
+                                        _meterValuesRepository, _currentResultRepository);
         }
 
         private void InitDb()
@@ -56,56 +56,57 @@ namespace CommunalCalculator
         
         public List<ServiceResult> GetResult()
         {
-            _resultBuilder.GetResults();
+            _currentResultService.CreateCurrentResult();
             _dbWriter.WriteAll();
-            return _calculationResultsRepository.GetResults();
+            return _currentResultRepository.GetResults();
         }
 
         public void SetResidentsCount(int count)
         {
-            _houseBuilder.SetResidentsCount(count);
+            _rawDataService.SetResidentsCount(count);
         }
         
         // Set ColdWater values by stored normatives
         public void SetColdWater() 
         {
-            _houseBuilder.SetColdWaterByNormative();
+            _rawDataService.SetColdWaterByNormative();
         }
         
         //Set ColdWater values by meter values
         public void SetColdWater(decimal currentMeterValue) 
         {
-            _houseBuilder.SetColdWaterByMeter(currentMeterValue);
+            _rawDataService.SetColdWaterByMeter(currentMeterValue);
         }
 
         //Set HotWater values by stored normatives
         public void SetHotWater() 
         {
-            _houseBuilder.SetHeatCarrierThermalEnergyByNormative();
+            _rawDataService.SetHeatCarrierThermalEnergyByNormative();
         }
 
         //Set HotWater values by meter value
         public void SetHotWater(decimal currentMeterValue) 
         {
-            _houseBuilder.SetHeatCarrierThermalEnergyByByMeter(currentMeterValue);
+            _rawDataService.SetHeatCarrierThermalEnergyByMeter(currentMeterValue);
         }
 
         //Set ElectroEnergy values by stored normative
         public void SetElectroEnergy() 
         {
-            _houseBuilder.SetElectroEnergyByNormative();
+            _rawDataService.SetElectroEnergyByNormative();
         }
 
         //Set ElectroEnergy values by meter values
         public void SetElectroEnergy(decimal currentMeterValue) 
         {
-            _houseBuilder.SetElectroEnergyByMeter(currentMeterValue);
+            _rawDataService.SetElectroEnergyByMeter(currentMeterValue);
         }
 
         //Set Day & Night ElectroEnergy values by meter value
         public void SetElectroEnergy(decimal currentMeterValueDay, decimal currentMeterValueNight) 
         {
-            _houseBuilder.SetElectroEnergyByDayNightMeter(currentMeterValueDay, currentMeterValueNight);
+            _rawDataService.SetElectroEnergyByDayMeter(currentMeterValueDay);
+            _rawDataService.SetElectroEnergyByNightMeter(currentMeterValueNight);
         }
     }
 }

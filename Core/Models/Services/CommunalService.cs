@@ -8,6 +8,6 @@
 
 
         internal CommunalRate Rate { get; set; }
-        internal abstract decimal Calculate();
+        internal abstract void Calculate();
     }
 }
